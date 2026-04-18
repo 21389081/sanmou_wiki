@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 三謀資料庫 (Demo)
 
-## Getting Started
+一個為《三國：謀定天下》打造的高質感、極簡風格資料庫網站。
 
-First, run the development server:
+本專案目前處於 Demo 階段，採用現代前端技術棧，旨在提供流暢的武將與戰法查詢體驗。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🖋️ 設計理念
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **黑金美學**：採用深色背景搭配金色點綴，營造歷史厚重感與現代高級感。
+- **動態交互**：利用 Framer Motion 實現細膩的頁面轉場與卡片懸停效果。
+- **行動優先**：完全響應式的設計，確保在手機端也能擁有完美的查閱體驗。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ 核心功能
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **首頁即時查詢**：支援武將、戰法名稱即時搜尋，提供快速預覽與跳轉。
+- **武將圖鑑**：
+    - 陣營過濾系統。
+    - 動態詳情頁面，包含基礎屬性（含成長值）、自帶戰法說明、緣分效果。
+    - **等級切換**：支援自帶戰法「初級/滿級」數值動態切換。
+- **戰法圖鑑**：
+    - 類型與特性雙重過濾系統。
+    - 詳情頁面展示發動率、傳承來源及品質分類（橙/紫/藍）。
+    - **等級切換**：支援戰法效果「初級/滿級」描述對比。
+- **響應式導覽欄**：具備動畫效果的手機端下拉選單。
 
-## Learn More
+## 🛠️ 技術棧
 
-To learn more about Next.js, take a look at the following resources:
+- **框架**: [Next.js 14+ (App Router)](https://nextjs.org/)
+- **語言**: [TypeScript](https://www.typescriptlang.org/)
+- **樣式**: [Tailwind CSS](https://tailwindcss.com/)
+- **動畫**: [Framer Motion](https://www.framer.com/motion/)
+- **圖示**: [Lucide React](https://lucide.dev/)
+- **資料管理**: 本地靜態資料 (預留 [Supabase](https://supabase.com/) 對接接口)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 快速開始
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1.  **安裝依賴**:
 
-## Deploy on Vercel
+    ```bash
+    npm install
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2.  **啟動開發伺服器**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    ```bash
+    npm run dev
+    ```
+
+3.  **瀏覽專案**:
+    打開 [http://localhost:3000](http://localhost:3000) 查看結果。
+
+## 📂 專案結構
+
+- `src/app`: 頁面路由與佈局邏輯。
+- `src/components`: 可複用的 UI 元件（卡片、導覽欄、轉場動畫）。
+- `src/lib/data.ts`: 集中管理 Demo 用的武將與戰法數據。
+- `public/images`: 存放立繪與戰法圖示資源。
+
+---
+
+三謀資料庫 © 2024
