@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import PageTransition from "@/components/page-transition";
 import { tacticsData } from "@/lib/data";
 import { ArrowLeft, Scroll, Zap, Flame, Target, Shield } from "lucide-react";

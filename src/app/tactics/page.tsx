@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 import PageTransition from "@/components/page-transition";
 import TacticCard, { TacticType, TacticRank, Characteristic } from "@/components/tactic-card";
 import { Search } from "lucide-react";
