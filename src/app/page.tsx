@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Users, Sword, Info, ScrollText, ChevronRight, Search } from 'lucide-react';
 import PageTransition from '@/components/page-transition';
 import { generalsData, tacticsData } from '@/lib/data';
