@@ -23,14 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-TW" className={`${inter.variable} ${notoSerif.variable}`}>
-      <body className="antialiased min-h-screen text-foreground selection:bg-accent-gold/30 selection:text-accent-gold">
+      <body className="antialiased min-h-screen flex flex-col text-foreground selection:bg-accent-gold/30 selection:text-accent-gold">
         <Navbar />
-        <main className="pt-20 px-4 max-w-7xl mx-auto">
+        <main className="pt-20 px-4 max-w-7xl mx-auto flex-grow w-full">
           <LayoutTransition>
             {children}
           </LayoutTransition>
         </main>
-        <footer className="mt-20 py-10 border-t border-primary/5 text-center text-foreground-muted text-sm px-4">
+        <footer className="py-8 border-t border-white/5 text-center text-foreground-muted text-sm px-4">
           <p>© 2026 三國：謀定天下 Wiki Database. All rights reserved.</p>
         </footer>
       </body>
