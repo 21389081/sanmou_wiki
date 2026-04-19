@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Serif_TC, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import LayoutTransition from "@/components/layout-transition";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const notoSerif = Noto_Serif_TC({ 
@@ -25,7 +26,9 @@ export default function RootLayout({
       <body className="antialiased min-h-screen text-foreground selection:bg-accent-gold/30 selection:text-accent-gold">
         <Navbar />
         <main className="pt-20 px-4 max-w-7xl mx-auto">
-          {children}
+          <LayoutTransition>
+            {children}
+          </LayoutTransition>
         </main>
         <footer className="mt-20 py-10 border-t border-primary/5 text-center text-foreground-muted text-sm px-4">
           <p>© 2026 三國：謀定天下 Wiki Database. All rights reserved.</p>
