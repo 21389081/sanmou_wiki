@@ -6,7 +6,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import PageTransition from "@/components/page-transition";
 import { generalsData } from "@/lib/data";
-import { ArrowLeft, Shield, Sword, Users, Zap, Heart, Star } from "lucide-react";
+import { ArrowLeft, Shield, Sword, Users, Zap, Heart, Star, LucideIcon } from "lucide-react";
 import { Faction } from "@/components/general-card";
 import { cn } from "@/lib/utils";
 
@@ -184,7 +184,7 @@ export default function GeneralDetailPage() {
   );
 }
 
-function AttributeBox({ icon: Icon, label, value, color }: { icon: any, label: string, value: number | string, color: string }) {
+function AttributeBox({ icon: Icon, label, value, color }: { icon: LucideIcon, label: string, value: number | string, color: string }) {
   return (
     <div className="p-4 rounded-xl border border-white/5 bg-white/[0.03] flex flex-col items-center justify-center space-y-1">
       <div className={cn("flex items-center gap-2 text-lg font-serif", color)}>

@@ -38,7 +38,7 @@ export default function GeneralsPage() {
               {["全部", ...factions].map(f => (
                 <button
                   key={f}
-                  onClick={() => setSelectedFaction(f as any)}
+                  onClick={() => setSelectedFaction(f as Faction | "全部")}
                   className={cn(
                     "px-4 py-1.5 rounded-full text-sm transition-all border",
                     selectedFaction === f 

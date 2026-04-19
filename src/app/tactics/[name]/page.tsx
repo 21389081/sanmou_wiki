@@ -6,11 +6,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import PageTransition from "@/components/page-transition";
 import { tacticsData } from "@/lib/data";
-import { ArrowLeft, Scroll, Zap, Flame, Target, Shield } from "lucide-react";
+import { ArrowLeft, Scroll, Zap, Flame, Target, Shield, LucideIcon } from "lucide-react";
 import { TacticType, TacticRank } from "@/components/tactic-card";
 import { cn } from "@/lib/utils";
 
-const typeIcons: Record<TacticType, any> = {
+const typeIcons: Record<TacticType, LucideIcon> = {
   主動: Flame,
   被動: Shield,
   指揮: Target,

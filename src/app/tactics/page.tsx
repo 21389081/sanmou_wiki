@@ -41,7 +41,7 @@ export default function TacticsPage() {
               {["全部", ...types].map(t => (
                 <button
                   key={t}
-                  onClick={() => setSelectedType(t as any)}
+                  onClick={() => setSelectedType(t as TacticType | "全部")}
                   className={cn(
                     "px-4 py-1.5 rounded-full text-sm transition-all border",
                     selectedType === t 
@@ -62,7 +62,7 @@ export default function TacticsPage() {
               {["全部", ...characteristics].map(c => (
                 <button
                   key={c}
-                  onClick={() => setSelectedChar(c as any)}
+                  onClick={() => setSelectedChar(c as Characteristic | "全部")}
                   className={cn(
                     "px-4 py-1.5 rounded-full text-sm transition-all border",
                     selectedChar === c 

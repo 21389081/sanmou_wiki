@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Shield, Zap, Target, Scroll, Flame } from "lucide-react";
+import { Shield, Zap, Target, Scroll, Flame, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type TacticType = "主動" | "被動" | "指揮" | "追擊";
@@ -22,7 +22,7 @@ interface TacticCardProps {
   source?: string;
 }
 
-const typeIcons: Record<TacticType, any> = {
+const typeIcons: Record<TacticType, LucideIcon> = {
   主動: Flame,
   被動: Shield,
   指揮: Target,
