@@ -25,7 +25,7 @@ const tools = [
         delay: 0.2,
     },
     {
-        title: '遊戲攻略',
+        title: '官方攻略站',
         description: '從新手入門到深度配將，掌握謀定天下的關鍵。',
         href: 'https://newslg.biligames.com/gameguide/h5/#/',
         icon: ScrollText,
@@ -88,7 +88,13 @@ export default function Home() {
             {/* Navigation Grid */}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl px-4'>
                 {tools.map((tool) => (
-                    <Link key={tool.href} href={tool.href} className='block group'>
+                    <Link 
+                        key={tool.href} 
+                        href={tool.href} 
+                        className='block group'
+                        target={tool.href.startsWith('http') ? '_blank' : undefined}
+                        rel={tool.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    >
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}

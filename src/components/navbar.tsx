@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Home, Users, Sword, Info, Menu, X } from 'lucide-react';
+import { Search, Home, Users, Sword, Info, Menu, X, ScrollText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -12,9 +12,9 @@ const navItems = [
     { name: '武將圖鑑', href: '/generals', icon: Users },
     { name: '戰法圖鑑', href: '/tactics', icon: Sword },
     {
-        name: '新手攻略',
+        name: '官方攻略站',
         href: 'https://newslg.biligames.com/gameguide/h5/#/',
-        icon: Info,
+        icon: ScrollText,
         external: true,
     },
 ];
