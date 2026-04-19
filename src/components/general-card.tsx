@@ -24,7 +24,7 @@ const factionColors: Record<Faction, string> = {
   群: "text-qun border-qun/30 bg-qun/5",
 };
 
-export default function GeneralCard({ name, faction, profession, rarity, image, tags }: GeneralCardProps) {
+export default function GeneralCard({ name, faction, rarity, image, tags }: GeneralCardProps) {
   return (
     <Link href={`/generals/${encodeURIComponent(name)}`}>
       <motion.div
