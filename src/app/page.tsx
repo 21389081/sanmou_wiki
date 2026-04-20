@@ -3,9 +3,24 @@
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { Users, Sword, Info, ScrollText, ChevronRight, Search } from 'lucide-react';
-import { generalsData, tacticsData } from '@/lib/data';
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { createClient } from '@/lib/supabase/client';
+import { getGeneralImage, getTacticImage } from '@/lib/supabase/storage';
+
+type General = {
+  gid: number;
+  名稱: string;
+  頭像: string;
+  品質: '橙' | '紫' | '藍';
+};
+
+type Tactic = {
+  tid: number;
+  戰法名稱: string;
+  圖示: string;
+  品質: '橙' | '紫' | '藍';
+};
 
 const tools = [
     {
@@ -45,14 +60,39 @@ const tools = [
 export default function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     const [showResults, setShowResults] = useState(false);
+    const [generals, setGenerals] = useState<General[]>([]);
+    const [tactics, setTactics] = useState<Tactic[]>([]);
+    const [loading, setLoading] = useState(true);
     const searchRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const supabase = createClient();
+            const [{ data: generalsData }, { data: tacticsData }] = await Promise.all([
+                supabase.from('generals_info').select('gid, 名稱, 頭像, 品質'),
+                supabase.from('tactics_info').select('tid, 戰法名稱, 圖示, 品質'),
+            ]);
+            setGenerals((generalsData || []).map(g => ({
+                ...g,
+                頭像: getGeneralImage(g.頭像),
+                品質: (g.品質 === 'orange' ? '橙' : g.品質 === 'purple' ? '紫' : '藍') as General['品質'],
+            })));
+            setTactics((tacticsData || []).map(t => ({
+                ...t,
+                圖示: getTacticImage(t.圖示),
+                品質: (t.品質 === 'orange' ? '橙' : t.品質 === 'purple' ? '紫' : '藍') as Tactic['品質'],
+            })));
+            setLoading(false);
+        };
+        fetchData();
+    }, []);
+
     const filteredGenerals = searchTerm
-        ? generalsData.filter((g) => g.name.includes(searchTerm)).slice(0, 3)
+        ? generals.filter((g) => g.名稱.includes(searchTerm)).slice(0, 3)
         : [];
 
     const filteredTactics = searchTerm
-        ? tacticsData.filter((t) => t.name.includes(searchTerm)).slice(0, 3)
+        ? tactics.filter((t) => t.戰法名稱.includes(searchTerm)).slice(0, 3)
         : [];
 
     useEffect(() => {
@@ -154,7 +194,7 @@ export default function Home() {
                     </div>
 
                     {/* Results Dropdown */}
-                    {showResults && searchTerm && (
+                    {showResults && searchTerm && !loading && (
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -173,21 +213,21 @@ export default function Home() {
                                             </div>
                                             {filteredGenerals.map((g) => (
                                                 <Link
-                                                    key={g.name}
-                                                    href={`/generals/${encodeURIComponent(g.name)}`}
+                                                    key={g.gid}
+                                                    href={`/generals/${encodeURIComponent(g.名稱)}`}
                                                     className='flex items-center gap-2 p-1.5 hover:bg-white/5 rounded-lg transition-colors group'
                                                 >
                                                     <div className='relative w-8 h-8 rounded border border-white/10 overflow-hidden bg-white/5'>
                                                         <Image
-                                                            src={g.image}
-                                                            alt={g.name}
+                                                            src={g.頭像}
+                                                            alt={g.名稱}
                                                             fill
                                                             sizes='40px'
                                                             className='object-cover'
                                                         />
                                                     </div>
                                                     <span className='text-sm font-medium group-hover:text-accent-gold transition-colors'>
-                                                        {g.name}
+                                                        {g.名稱}
                                                     </span>
                                                 </Link>
                                             ))}
@@ -200,15 +240,21 @@ export default function Home() {
                                             </div>
                                             {filteredTactics.map((t) => (
                                                 <Link
-                                                    key={t.name}
-                                                    href={`/tactics/${encodeURIComponent(t.name)}`}
+                                                    key={t.tid}
+                                                    href={`/tactics/${encodeURIComponent(t.戰法名稱)}`}
                                                     className='flex items-center gap-2 p-1.5 hover:bg-white/5 rounded-lg transition-colors group'
                                                 >
-                                                    <div className='w-8 h-8 rounded border border-white/10 bg-white/10 flex items-center justify-center font-serif font-black text-[10px] text-accent-gold'>
-                                                        {t.rank}
+                                                    <div className='relative w-8 h-8 rounded border border-white/10 overflow-hidden bg-white/5'>
+                                                        <Image
+                                                            src={t.圖示}
+                                                            alt={t.戰法名稱}
+                                                            fill
+                                                            sizes='32px'
+                                                            className='object-cover'
+                                                        />
                                                     </div>
                                                     <span className='text-sm font-medium group-hover:text-accent-gold transition-colors'>
-                                                        {t.name}
+                                                        {t.戰法名稱}
                                                     </span>
                                                 </Link>
                                             ))}
