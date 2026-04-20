@@ -4,10 +4,11 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { tacticsData } from "@/lib/data";
 import { ArrowLeft, Scroll, Zap, Flame, Target, Shield, LucideIcon } from "lucide-react";
-import { TacticType, TacticRank } from "@/components/tactic-card";
 import { cn } from "@/lib/utils";
+
+type TacticType = "主動" | "被動" | "指揮" | "追擊";
+type TacticRank = "橙" | "紫" | "藍";
 
 const typeIcons: Record<TacticType, LucideIcon> = {
   主動: Flame,
@@ -21,6 +22,19 @@ const rankStyles: Record<TacticRank, string> = {
   紫: "text-purple-400 border-purple-400/30 bg-purple-400/5",
   藍: "text-blue-400 border-blue-400/30 bg-blue-400/5",
 };
+
+const tacticsData = [
+  {
+    name: "奇正相生",
+    type: "指揮" as TacticType,
+    rank: "橙" as TacticRank,
+    characteristic: "治療",
+    rate: "100%",
+    lv1: "第2回合起，回合開始時，有65%概率恢復我軍隨機兩人兵力(治療率75%)，回合結束時，有65%概率對敵軍隨機兩人造成75%謀略傷害",
+    lv10: "第2回合起，回合開始時，有65%概率恢復我軍隨機兩人兵力(治療率150%)，回合結束時，有65%概率對敵軍隨機兩人造成150%謀略傷害",
+    image: "/images/jiu_fa_zhong_yuan.png",
+  },
+];
 
 export default function TacticDetailPage() {
   const { name } = useParams();

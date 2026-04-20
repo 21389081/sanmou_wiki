@@ -1,5 +1,7 @@
-import { Faction } from '@/components/general-card';
-import { TacticType, TacticRank, Characteristic } from '@/components/tactic-card';
+type Faction = "魏" | "蜀" | "吳" | "群";
+type TacticType = "主動" | "被動" | "指揮" | "追擊";
+type TacticRank = "橙" | "紫" | "藍";
+type Characteristic = "兵刃" | "謀略" | "治療" | "防禦" | "輔助" | "文武";
 
 export const generalsData = [
     {
