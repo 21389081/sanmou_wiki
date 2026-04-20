@@ -1,39 +1,37 @@
-import type { Metadata } from "next";
-import { Noto_Serif_TC, Inter } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/navbar";
-import LayoutTransition from "@/components/layout-transition";
+import type { Metadata } from 'next';
+import { Noto_Serif_TC, Inter } from 'next/font/google';
+import './globals.css';
+import Navbar from '@/components/navbar';
+import LayoutTransition from '@/components/layout-transition';
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const notoSerif = Noto_Serif_TC({ 
-  weight: ["400", "700", "900"],
-  subsets: ["latin"],
-  variable: "--font-serif",
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const notoSerif = Noto_Serif_TC({
+    weight: ['400', '700', '900'],
+    subsets: ['latin'],
+    variable: '--font-serif',
 });
 
 export const metadata: Metadata = {
-  title: "三國：謀定天下 | 數據庫 Wiki",
-  description: "精緻國風特色的《三國：謀定天下》武將圖鑑、戰法資料與深度攻略資料庫。",
+    title: '三國：謀定天下 | 數據庫 Wiki',
+    description: '精緻國風特色的《三國：謀定天下》武將圖鑑、戰法資料與深度攻略資料庫。',
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="zh-TW" className={`${inter.variable} ${notoSerif.variable}`}>
-      <body className="antialiased min-h-screen flex flex-col text-foreground selection:bg-accent-gold/30 selection:text-accent-gold">
-        <Navbar />
-        <main className="pt-20 px-4 max-w-7xl mx-auto flex-grow w-full">
-          <LayoutTransition>
-            {children}
-          </LayoutTransition>
-        </main>
-        <footer className="py-8 border-t border-white/5 text-center text-foreground-muted text-sm px-4">
-          <p>© 2026 三國：謀定天下 Wiki Database. All rights reserved.</p>
-        </footer>
-      </body>
-    </html>
-  );
+    return (
+        <html lang='zh-TW' className={`${inter.variable} ${notoSerif.variable}`}>
+            <body className='antialiased min-h-screen flex flex-col text-foreground selection:bg-accent-gold/30 selection:text-accent-gold'>
+                <Navbar />
+                <main className='pt-20 px-4 max-w-7xl mx-auto flex-grow w-full'>
+                    <LayoutTransition>{children}</LayoutTransition>
+                </main>
+                <footer className='py-8 border-t border-white/5 text-center text-foreground-muted text-sm px-4'>
+                    <p>Copyright © 2026 三謀數據庫</p>
+                </footer>
+            </body>
+        </html>
+    );
 }
