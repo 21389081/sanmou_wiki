@@ -52,8 +52,8 @@ export default function GeneralDetailContent({
             className="relative aspect-[3/4] bg-surface rounded-3xl overflow-hidden border border-white/5 shadow-2xl w-full max-w-[280px] lg:max-w-none mx-auto"
           >
             <Image
-              src={general.頭像}
-              alt={general.名稱}
+              src={general.avatar}
+              alt={general.name}
               fill
               sizes="(max-width: 1024px) 280px, 400px"
               className="object-contain p-4"
@@ -63,10 +63,10 @@ export default function GeneralDetailContent({
 
           {/* Basic Attributes Grid */}
           <div className="glass rounded-2xl p-6 border-white/5 grid grid-cols-2 gap-4 w-full">
-            <AttributeBox icon={Sword} label="武力" value={general.武力} color="text-red-400" />
-            <AttributeBox icon={Zap} label="先攻" value={general.先攻} color="text-blue-400" />
-            <AttributeBox icon={Star} label="智力" value={general.智力} color="text-purple-400" />
-            <AttributeBox icon={Shield} label="統率" value={general.統率} color="text-green-400" />
+            <AttributeBox icon={Sword} label="武力" value={general.strength} color="text-red-400" />
+            <AttributeBox icon={Zap} label="先攻" value={general.initiative} color="text-blue-400" />
+            <AttributeBox icon={Star} label="智力" value={general.intelligence} color="text-purple-400" />
+            <AttributeBox icon={Shield} label="統率" value={general.leadership} color="text-green-400" />
           </div>
         </div>
 
@@ -77,28 +77,28 @@ export default function GeneralDetailContent({
               <span className="text-accent-gold text-sm font-mono tracking-widest uppercase">名將資料卡</span>
               <div className="h-px flex-grow bg-gradient-to-r from-accent-gold/30 to-transparent" />
             </div>
-            <h1 className="text-5xl md:text-6xl font-serif mb-6">{general.名稱}</h1>
+            <h1 className="text-5xl md:text-6xl font-serif mb-6">{general.name}</h1>
             <div className="flex flex-wrap gap-2">
               {/* Faction Tag */}
               <span className={cn(
                 "px-4 py-1.5 border rounded-full text-xs font-bold",
-                factionColors[general.陣營]
+                factionColors[general.camp]
               )}>
-                {general.陣營}
+                {general.camp}
               </span>
               <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs text-foreground-muted">
-                {general.兵種}
+                {general.soldier_type}
               </span>
               {/* Quality Tag */}
               <span className={cn(
                 "px-4 py-1.5 border rounded-full text-xs font-bold",
-                qualityColors[general.品質]
+                qualityColors[general.rarity]
               )}>
-                {general.品質}
+                {general.rarity}
               </span>
               {/* Season Tag */}
               <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs text-foreground-muted">
-                {general.登場賽季}
+                {general.season}
               </span>
             </div>
           </header>
@@ -134,8 +134,8 @@ export default function GeneralDetailContent({
               <div className="flex flex-col sm:flex-row items-start gap-6">
                 <div className="relative w-20 h-20 shrink-0 rounded-2xl border border-accent-gold/20 overflow-hidden bg-black/40">
                   <Image 
-                    src={general.自帶戰法圖示} 
-                    alt={general.自帶戰法名稱} 
+                    src={general.tactic_icon} 
+                    alt={general.tactic_name} 
                     fill 
                     sizes="80px"
                     className="object-cover opacity-80" 
@@ -143,7 +143,7 @@ export default function GeneralDetailContent({
                   />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-serif text-white mb-2">{general.自帶戰法名稱}</h3>
+                  <h3 className="text-2xl font-serif text-white mb-2">{general.tactic_name}</h3>
                   <p className="text-foreground-muted leading-relaxed text-lg min-h-[80px]">
                     <AnimatePresence mode="wait">
                       <motion.span
@@ -153,7 +153,7 @@ export default function GeneralDetailContent({
                         exit={{ opacity: 0, y: -5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {tacticLevel === 1 ? general.自帶戰法初級效果 : general.自帶戰法滿級效果}
+                        {tacticLevel === 1 ? general.tactic_effect_base : general.tactic_effect_max}
                       </motion.span>
                     </AnimatePresence>
                   </p>
@@ -172,16 +172,16 @@ export default function GeneralDetailContent({
                 {fates.map(fate => (
                   <div key={fate.fid} className="space-y-3">
                     <div className="inline-block px-3 py-1 rounded border border-accent-gold/30 text-accent-gold text-sm font-serif">
-                      {fate.緣分名稱}
+                      {fate.name}
                     </div>
-                    {fate.緣分成員 && (
+                    {fate.members && (
                       <div className="text-sm font-medium flex items-center gap-2">
                         <span className="text-accent-gold/80">緣分成員：</span>
-                        <span className="text-foreground">{fate.緣分成員}</span>
+                        <span className="text-foreground">{fate.members}</span>
                       </div>
                     )}
                     <p className="text-foreground-muted leading-relaxed italic border-l-2 border-accent-gold/20 pl-4">
-                      {fate.緣分效果}
+                      {fate.effect}
                     </p>
                   </div>
                 ))}

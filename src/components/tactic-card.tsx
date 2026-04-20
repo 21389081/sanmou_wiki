@@ -4,16 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 
-export default function TacticCard({ 戰法名稱, 圖示 }: { 戰法名稱: string; 圖示: string }) {
+export default function TacticCard({ name, icon }: { name: string; icon: string }) {
   return (
-    <Link href={`/tactics/${encodeURIComponent(戰法名稱)}`}>
+    <Link href={`/tactics/${encodeURIComponent(name)}`}>
       <motion.div
         layout
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
         whileHover={{ y: -8 }}
-        title={戰法名稱}
+        title={name}
         className="relative group bg-surface rounded-xl overflow-hidden border border-white/5 hover:border-accent-gold/40 shadow-2xl aspect-[159/248] w-full"
       >
         {/* Tactic Image */}
@@ -24,8 +24,8 @@ export default function TacticCard({ 戰法名稱, 圖示 }: { 戰法名稱: str
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <Image
-              src={圖示}
-              alt={戰法名稱}
+              src={icon}
+              alt={name}
               fill
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
               className="object-contain"

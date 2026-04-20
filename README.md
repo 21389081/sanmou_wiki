@@ -1,63 +1,217 @@
-# 三謀資料庫 (Demo)
+# 三謀資料庫
 
-一個為《三國：謀定天下》打造的資料庫網站。
+一個為《三國：謀定天下》打造的武將與戰法資料庫網站。
 
-本專案目前處於 Demo 階段，採用現代前端技術棧，旨在提供流暢的武將與戰法查詢體驗。
+## 📱 線上預覽
 
-目前填充資料為測試資料，非最終成品版本。
+開發完成後可部署至 Vercel / Cloudflare Pages 等平台。
 
 ## 🖋️ 設計理念
 
 - **黑金美學**：採用深色背景搭配金色點綴，營造歷史厚重感與現代高級感。
-- **動態交互**：利用 Framer Motion 實現細膩的頁面轉場與卡片懸停效果。
-- **行動優先**：完全響應式的設計，確保在手機端也能擁有完美的查閱體驗。
+- **流暢互動**：利用 Motion 實現細膩的頁面轉場與卡片懸停效果。
+- **完整響應**：完全響應式設計，確保手機端也能擁有良好的查閱體驗。
 
 ## ✨ 核心功能
 
-- **首頁即時查詢**：支援武將、戰法名稱即時搜尋，提供快速預覽與跳轉。
-- **武將圖鑑**：
-    - 陣營過濾系統。
-    - 動態詳情頁面，包含基礎屬性（含成長值）、自帶戰法說明、緣分效果。
-    - **等級切換**：支援自帶戰法「初級/滿級」數值動態切換。
-- **戰法圖鑑**：
-    - 類型與特性雙重過濾系統。
-    - 詳情頁面展示發動率、傳承來源及品質分類（橙/紫/藍）。
-    - **等級切換**：支援戰法效果「初級/滿級」描述對比。
-- **響應式導覽欄**：具備動畫效果的手機端下拉選單。
+### 首頁
+- **快速查詢**：支援武將、戰法名稱即時搜尋，下拉選單即時顯示結果
+- **功能導覽**：四個入口卡片（武將圖鑑 / 戰法圖鑑 / 官方攻略站 / 系統說明）
 
-## 🛠️ 技術棧
+### 武將圖鑑 (`/generals`)
+- **三重過濾系統**：陣營（魏/蜀/吳/群）、品質（橙/紫/藍）、兵種（盾/槍/弓/騎）
+- **即時搜尋**：名稱關鍵字過濾
+- **結果計數**：顯示符合條件的武將數量
 
-- **框架**: [Next.js 14+ (App Router)](https://nextjs.org/)
-- **語言**: [TypeScript](https://www.typescriptlang.org/)
-- **樣式**: [Tailwind CSS](https://tailwindcss.com/)
-- **動畫**: [Framer Motion](https://www.framer.com/motion/)
-- **圖示**: [Lucide React](https://lucide.dev/)
-- **資料管理**: 本地靜態資料 (預留 [Supabase](https://supabase.com/) 對接接口)
+### 戰法圖鑑 (`/tactics`)
+- **雙重過濾系統**：類型（主動/被動/指揮/追擊）、特性（兵刃/謀略/治療/防禦/輔助/文武）
+- **三級過濾**：品質（橙/紫/藍）
+- **即時搜尋**：名稱關鍵字過濾
+- **結果計數**：顯示符合條件的戰法數量
 
-## 🚀 快速開始
+### 詳情頁面
+- **等級切換**：武將自帶戰法「初級/滿級」數值對比；戰法效果「初級/滿級」描述對比
+- **武將詳情**：頭像、屬性面板（武力/智力/統率/先攻）、陣營/兵種/品質標籤、自帶戰法、緣分效果
 
-1.  **安裝依賴**:
-
-    ```bash
-    npm install
-    ```
-
-2.  **啟動開發伺服器**:
-
-    ```bash
-    npm run dev
-    ```
-
-3.  **瀏覽專案**:
-    打開 [http://localhost:3000](http://localhost:3000) 查看結果。
-
-## 📂 專案結構
-
-- `src/app`: 頁面路由與佈局邏輯。
-- `src/components`: 可複用的 UI 元件（卡片、導覽欄、轉場動畫）。
-- `src/lib/data.ts`: 集中管理 Demo 用的武將與戰法數據。
-- `public/images`: 存放立繪與戰法圖示資源。
+### 響應式導覽欄
+- **首頁/武將圖鑑/戰法圖鑑/官方攻略站/系統說明** 導覽項目
+- **桌面/手機即時搜尋**：手機選單具備展開動畫，展開時鎖定背景滾動
 
 ---
 
-三謀資料庫 © 2024
+## 🛠️ 技術棧
+
+| 類別 | 技術 |
+|-----|------|
+| 框架 | [Next.js 16](https://nextjs.org/) (App Router) |
+| 語言 | [TypeScript](https://www.typescriptlang.org/) (strict mode) |
+| UI | [React 19](https://react.dev/) |
+| 樣式 | [Tailwind CSS v4](https://tailwindcss.com/) |
+| 動畫 | [Motion](https://motion.dev/) (v12) |
+| 圖示 | [Lucide React](https://lucide.dev/) |
+| 後端/資料庫 | [Supabase](https://supabase.com/) (SSR Client) |
+| 部署 | Vercel / Cloudflare Pages |
+
+---
+
+## 🚀 快速開始
+
+### 1. 安裝依賴
+
+```bash
+npm install
+```
+
+### 2. 設定環境變數
+
+在專案根目錄建立 `.env.local`：
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### 3. 啟動開發伺服器
+
+```bash
+npm run dev
+```
+
+### 4. 瀏覽
+
+打開 [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 📂 專案結構
+
+```
+src/
+├── app/                          # Next.js App Router
+│   ├── page.tsx                  # 首頁（含搜尋功能）
+│   ├── layout.tsx               # 根佈局（含 Navbar + LayoutTransition）
+│   ├── globals.css              # Tailwind v4 主題定義
+│   ├── generals/
+│   │   ├── page.tsx             # 武將列表頁（Server Component）
+│   │   ├── general-grid.tsx     # 武將列表 Client Component（過濾邏輯）
+│   │   └── [name]/
+│   │       ├── page.tsx          # 武將詳情頁入口
+│   │       └── general-detail-content.tsx  # 武將詳情內容
+│   ├── tactics/
+│   │   ├── page.tsx             # 戰法列表頁（Server Component）
+│   │   ├── tactic-grid.tsx        # 戰法列表 Client Component（過濾邏輯）
+│   │   └── [name]/
+│   │       ├── page.tsx          # 戰法詳情頁入口
+│   │       └── tactic-detail-content.tsx  # 戰法詳情內容
+│   ├── info/
+│   │   └── page.tsx            # 關於頁面
+│   └── api/
+│       └── test-tables/
+│           └── route.ts          # 測試用 API（回傳所有資料表內容）
+├── components/
+│   ├── navbar.tsx               # 響應式導覽欄（含搜尋功能）
+│   ├── general-card.tsx           # 武將卡片
+│   ├── tactic-card.tsx           # 戰法卡片
+│   └── layout-transition.tsx     # 頁面轉場動畫
+└── lib/
+    ├── api.ts                  # Supabase 查詢函式（Server Component）
+    ├── utils.ts                # 工具函式（cn）
+    └── supabase/
+        ├── client.ts          # Client-side Supabase
+        ├── server.ts          # Server-side Supabase（用於 RSC）
+        └── storage.ts        # 圖片儲存 URL 處理
+```
+
+---
+
+## 📡 API 函式 (`src/lib/api.ts`)
+
+| 函式 | 用途 |
+|-----|------|
+| `getGenerals()` | 取得所有武將 |
+| `getTactics()` | 取得所有戰法 |
+| `getGeneralByName(name)` | 依名稱取得單一武將詳情 |
+| `getTacticByName(name)` | 依名稱取得單一戰法詳情 |
+| `getFatesByIds(ids)` | 依 ID 陣列取得緣分資料 |
+
+---
+
+## 🗄️ 資料庫結構
+
+### generals_info
+
+| 欄位 | 類型 | 說明 |
+|-----|------|------|
+| gid | serial | 主鍵 |
+| name | text | 武將名稱 |
+| avatar | text | 頭像檔名 |
+| rarity | text | 品質 (orange/purple/blue) |
+| camp | text | 陣營 (魏/蜀/吳/群) |
+| soldier_type | text | 兵種 |
+| strength | text | 武力 |
+| intelligence | text | 智力 |
+| leadership | text | 統率 |
+| initiative | text | 先攻 |
+| tactic_name | text | 自帶戰法名稱 |
+| tactic_icon | text | 自帶戰法圖示 |
+| tactic_type | text | 自帶戰法類型 |
+| tactic_trait | text | 自帶戰法特性 |
+| tactic_chance | text | 自帶戰法發動概率 |
+| tactic_effect_base | text | 自帶戰法初級效果 |
+| tactic_effect_max | text | 自帶戰法滿級效果 |
+| season | text | 登場賽季 |
+| fate_id_1 ~ fate_id_4 | integer | 緣分 ID |
+
+### tactics_info
+
+| 欄位 | 類型 | 說明 |
+|-----|------|------|
+| tid | serial | 主鍵 |
+| name | text | 戰法名稱 |
+| icon | text | 戰法圖示 |
+| rarity | text | 品質 (orange/purple/blue) |
+| type | text | 類型 (主動/被動/指揮/追擊) |
+| soldier_type | text | 適用兵種 |
+| trait | text | 特性 |
+| chance | text | 發動概率 |
+| effect_base | text | 初級效果 |
+| effect_max | text | 滿級效果 |
+| season | text | 登場賽季 |
+
+### fate_info
+
+| 欄位 | 類型 | 說明 |
+|-----|------|------|
+| fid | serial | 主鍵 |
+| name | text | 緣分名稱 |
+| members | text | 緣分成員 |
+| effect | text | 緣分效果 |
+
+---
+
+## 🔧 可用腳本
+
+```bash
+npm run dev      # 啟動開發伺服器
+npm run build  # 生產建置
+npm run start  # 啟動已建置的生產伺服器
+npm run lint   # ESLint 檢查
+```
+
+---
+
+## 📝 設計 Token (`src/app/globals.css`)
+
+| Token | 用途 |
+|-------|------|
+| `--color-wei/shu/wu/qun` | 陣營顏色 |
+| `--color-accent-gold` | 金色點綴 (#c6a664) |
+| `--color-background` | 深色背景 (#0d0d0d) |
+| `--font-serif` | Noto Serif TC（中文標題） |
+| `.glass` | 毛玻璃效果 utility class |
+
+---
+
+## 📜 License
+
+MIT

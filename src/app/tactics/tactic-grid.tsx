@@ -8,15 +8,15 @@ import { cn } from "@/lib/utils";
 
 type Tactic = {
   tid: number
-  戰法名稱: string
-  圖示: string
-  品質: "橙" | "紫" | "藍"
-  戰法類型: string
-  戰法特性: string
-  發動概率: string
-  初級效果: string
-  滿級效果: string
-  登場賽季: string
+  name: string
+  icon: string
+  rarity: "橙" | "紫" | "藍"
+  type: string
+  trait: string
+  chance: string
+  effect_base: string
+  effect_max: string
+  season: string
 }
 
 type TacticType = "主動" | "被動" | "指揮" | "追擊"
@@ -41,13 +41,13 @@ export default function TacticGrid({ tactics }: { tactics: Tactic[] }) {
 
   const filteredTactics = tactics
     .filter(t => {
-      const matchType = selectedType === "全部" || t.戰法類型 === selectedType;
-      const matchChar = selectedChar === "全部" || t.戰法特性 === selectedChar;
-      const matchQuality = selectedQuality === "全部" || t.品質 === selectedQuality;
-      const matchSearch = t.戰法名稱.includes(searchTerm);
+      const matchType = selectedType === "全部" || t.type === selectedType;
+      const matchChar = selectedChar === "全部" || t.trait === selectedChar;
+      const matchQuality = selectedQuality === "全部" || t.rarity === selectedQuality;
+      const matchSearch = t.name.includes(searchTerm);
       return matchType && matchChar && matchQuality && matchSearch;
     })
-    .sort((a, b) => rankOrder[b.品質] - rankOrder[a.品質]);
+    .sort((a, b) => rankOrder[b.rarity] - rankOrder[a.rarity]);
 
   return (
     <div className="py-8">

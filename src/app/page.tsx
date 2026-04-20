@@ -2,30 +2,41 @@
 
 import Link from 'next/link';
 import { motion } from 'motion/react';
-import { Users, Sword, Info, ScrollText, ChevronRight, Search } from 'lucide-react';
+import {
+    Users,
+    Sword,
+    Info,
+    ScrollText,
+    ChevronRight,
+    Search,
+    Shield,
+    Swords,
+    MapPin,
+} from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { getGeneralImage, getTacticImage } from '@/lib/supabase/storage';
 
 type General = {
-  gid: number;
-  名稱: string;
-  頭像: string;
-  品質: '橙' | '紫' | '藍';
+    gid: number;
+    name: string;
+    avatar: string;
+    rarity: '橙' | '紫' | '藍';
 };
 
 type Tactic = {
-  tid: number;
-  戰法名稱: string;
-  圖示: string;
-  品質: '橙' | '紫' | '藍';
+    tid: number;
+    name: string;
+    icon: string;
+    rarity: '橙' | '紫' | '藍';
 };
 
 const tools = [
     {
         title: '武將圖鑑',
-        description: '收錄全系列武將立繪、屬性與推薦戰法。',
+        description:
+            '收錄直至s14為止，全武將立繪、陣營、兵種、戰法、屬性跟緣分，並可以根據條件進行篩選。',
         href: '/generals',
         icon: Users,
         color: 'bg-wei',
@@ -33,27 +44,43 @@ const tools = [
     },
     {
         title: '戰法圖鑑',
-        description: '全面解析各類戰法效果，助你組建最強隊伍。',
+        description: '收錄直至s14為止，全戰法卡面、初級效果、滿級效果，並可以根據條件進行篩選。',
         href: '/tactics',
         icon: Sword,
         color: 'bg-shu',
         delay: 0.2,
     },
     {
-        title: '官方攻略站',
-        description: '從新手入門到深度配將，掌握謀定天下的關鍵。',
-        href: 'https://newslg.biligames.com/gameguide/h5/#/',
-        icon: ScrollText,
+        title: '詞條一覽',
+        description: '遊戲中裝備、馬匹的特技、特效整理',
+        href: '/stats',
+        icon: Shield,
         color: 'bg-wu',
         delay: 0.3,
     },
     {
-        title: '系統說明',
-        description: '詳細拆解遊戲機制、職業特性與賽季規律。',
-        href: '/info',
-        icon: Info,
+        title: '狀態一覽',
+        description: '包含增益、減益狀態以及各種特殊效果的說明',
+        href: '/buffs',
+        icon: Swords,
         color: 'bg-qun',
         delay: 0.4,
+    },
+    {
+        title: '官方攻略站',
+        description: '從新手入門到深度配將，掌握謀定天下的關鍵。',
+        href: 'https://newslg.biligames.com/gameguide/h5/#/',
+        icon: ScrollText,
+        color: 'bg-orange',
+        delay: 0.5,
+    },
+    {
+        title: '關於本站',
+        description: '本站資訊＆相關連結。',
+        href: '/info',
+        icon: Info,
+        color: 'bg-purple',
+        delay: 0.6,
     },
 ];
 
@@ -69,30 +96,42 @@ export default function Home() {
         const fetchData = async () => {
             const supabase = createClient();
             const [{ data: generalsData }, { data: tacticsData }] = await Promise.all([
-                supabase.from('generals_info').select('gid, 名稱, 頭像, 品質'),
-                supabase.from('tactics_info').select('tid, 戰法名稱, 圖示, 品質'),
+                supabase.from('generals_info').select('gid, name, avatar, rarity'),
+                supabase.from('tactics_info').select('tid, name, icon, rarity'),
             ]);
-            setGenerals((generalsData || []).map(g => ({
-                ...g,
-                頭像: getGeneralImage(g.頭像),
-                品質: (g.品質 === 'orange' ? '橙' : g.品質 === 'purple' ? '紫' : '藍') as General['品質'],
-            })));
-            setTactics((tacticsData || []).map(t => ({
-                ...t,
-                圖示: getTacticImage(t.圖示),
-                品質: (t.品質 === 'orange' ? '橙' : t.品質 === 'purple' ? '紫' : '藍') as Tactic['品質'],
-            })));
+            setGenerals(
+                (generalsData || []).map((g) => ({
+                    ...g,
+                    avatar: getGeneralImage(g.avatar),
+                    rarity: (g.rarity === 'orange'
+                        ? '橙'
+                        : g.rarity === 'purple'
+                          ? '紫'
+                          : '藍') as General['rarity'],
+                })),
+            );
+            setTactics(
+                (tacticsData || []).map((t) => ({
+                    ...t,
+                    icon: getTacticImage(t.icon),
+                    rarity: (t.rarity === 'orange'
+                        ? '橙'
+                        : t.rarity === 'purple'
+                          ? '紫'
+                          : '藍') as Tactic['rarity'],
+                })),
+            );
             setLoading(false);
         };
         fetchData();
     }, []);
 
     const filteredGenerals = searchTerm
-        ? generals.filter((g) => g.名稱.includes(searchTerm)).slice(0, 3)
+        ? generals.filter((g) => g.name.includes(searchTerm)).slice(0, 3)
         : [];
 
     const filteredTactics = searchTerm
-        ? tactics.filter((t) => t.戰法名稱.includes(searchTerm)).slice(0, 3)
+        ? tactics.filter((t) => t.name.includes(searchTerm)).slice(0, 3)
         : [];
 
     useEffect(() => {
@@ -128,9 +167,9 @@ export default function Home() {
             {/* Navigation Grid */}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl px-4'>
                 {tools.map((tool) => (
-                    <Link 
-                        key={tool.href} 
-                        href={tool.href} 
+                    <Link
+                        key={tool.href}
+                        href={tool.href}
                         className='block group'
                         target={tool.href.startsWith('http') ? '_blank' : undefined}
                         rel={tool.href.startsWith('http') ? 'noopener noreferrer' : undefined}
@@ -139,7 +178,7 @@ export default function Home() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: tool.delay, duration: 0.3 }}
-                            whileHover={{ y: -20 }}
+                            whileHover={{ y: -10 }}
                             className='h-full glass rounded-xl p-8 group-hover:bg-white/5 group-hover:border-accent-gold/30 flex flex-col'
                         >
                             <div
@@ -214,20 +253,20 @@ export default function Home() {
                                             {filteredGenerals.map((g) => (
                                                 <Link
                                                     key={g.gid}
-                                                    href={`/generals/${encodeURIComponent(g.名稱)}`}
+                                                    href={`/generals/${encodeURIComponent(g.name)}`}
                                                     className='flex items-center gap-2 p-1.5 hover:bg-white/5 rounded-lg transition-colors group'
                                                 >
                                                     <div className='relative w-8 h-8 rounded border border-white/10 overflow-hidden bg-white/5'>
                                                         <Image
-                                                            src={g.頭像}
-                                                            alt={g.名稱}
+                                                            src={g.avatar}
+                                                            alt={g.name}
                                                             fill
                                                             sizes='40px'
                                                             className='object-cover'
                                                         />
                                                     </div>
                                                     <span className='text-sm font-medium group-hover:text-accent-gold transition-colors'>
-                                                        {g.名稱}
+                                                        {g.name}
                                                     </span>
                                                 </Link>
                                             ))}
@@ -241,20 +280,20 @@ export default function Home() {
                                             {filteredTactics.map((t) => (
                                                 <Link
                                                     key={t.tid}
-                                                    href={`/tactics/${encodeURIComponent(t.戰法名稱)}`}
+                                                    href={`/tactics/${encodeURIComponent(t.name)}`}
                                                     className='flex items-center gap-2 p-1.5 hover:bg-white/5 rounded-lg transition-colors group'
                                                 >
                                                     <div className='relative w-8 h-8 rounded border border-white/10 overflow-hidden bg-white/5'>
                                                         <Image
-                                                            src={t.圖示}
-                                                            alt={t.戰法名稱}
+                                                            src={t.icon}
+                                                            alt={t.name}
                                                             fill
                                                             sizes='32px'
                                                             className='object-cover'
                                                         />
                                                     </div>
                                                     <span className='text-sm font-medium group-hover:text-accent-gold transition-colors'>
-                                                        {t.戰法名稱}
+                                                        {t.name}
                                                     </span>
                                                 </Link>
                                             ))}

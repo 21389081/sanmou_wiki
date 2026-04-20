@@ -8,11 +8,11 @@ import { cn } from "@/lib/utils";
 
 type General = {
   gid: number
-  名稱: string
-  頭像: string
-  品質: "橙" | "紫" | "藍"
-  陣營: "魏" | "蜀" | "吳" | "群"
-  兵種: string
+  name: string
+  avatar: string
+  rarity: "橙" | "紫" | "藍"
+  camp: "魏" | "蜀" | "吳" | "群"
+  soldier_type: string
 }
 
 type Faction = "魏" | "蜀" | "吳" | "群"
@@ -37,13 +37,13 @@ export default function GeneralGrid({ generals }: { generals: General[] }) {
 
   const filteredGenerals = generals
     .filter(g => {
-      const matchFaction = selectedFaction === "全部" || g.陣營 === selectedFaction;
-      const matchQuality = selectedQuality === "全部" || g.品質 === selectedQuality;
-      const matchProfession = selectedProfession === "全部" || g.兵種 === selectedProfession;
-      const matchSearch = g.名稱.includes(searchTerm);
+      const matchFaction = selectedFaction === "全部" || g.camp === selectedFaction;
+      const matchQuality = selectedQuality === "全部" || g.rarity === selectedQuality;
+      const matchProfession = selectedProfession === "全部" || g.soldier_type === selectedProfession;
+      const matchSearch = g.name.includes(searchTerm);
       return matchFaction && matchQuality && matchProfession && matchSearch;
     })
-    .sort((a, b) => rankOrder[b.品質] - rankOrder[a.品質]);
+    .sort((a, b) => rankOrder[b.rarity] - rankOrder[a.rarity]);
 
   return (
     <div className="py-8">

@@ -1,75 +1,169 @@
-"use client";
+'use client';
 
-import { motion } from "motion/react";
-import { Info, Settings, Shield, Zap } from "lucide-react";
+import Link from 'next/link';
+import { motion } from 'motion/react';
+import { Info, Globe, MessageSquare, Video, User, ExternalLink } from 'lucide-react';
 
-export default function InfoPage() {
-  return (
-    <div className="py-12 md:py-20 max-w-4xl mx-auto px-4">
-      <header className="mb-12 text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-qun/10 text-qun border border-qun/20"
-        >
-          <Info size={32} />
-        </motion.div>
-        <h1 className="text-4xl font-serif mb-4 text-accent-gold">系統說明</h1>
-        <p className="text-foreground-muted text-lg">
-          詳細拆解《三國：謀定天下》的核心遊戲機制與賽季規律。
-        </p>
-      </header>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <InfoCard 
-          icon={Settings} 
-          title="核心機制" 
-          description="了解資源獲取、城建升級與部隊編成的基礎邏輯，建立穩固的發展基石。"
-          color="text-blue-400"
-          bg="bg-blue-400/5"
-          border="border-blue-400/20"
-        />
-        <InfoCard 
-          icon={Shield} 
-          title="職業特性" 
-          description="解析鎮軍、青囊、奇佐等六大職業的專屬技能與團隊定位，選擇最適合的發展路線。"
-          color="text-green-400"
-          bg="bg-green-400/5"
-          border="border-green-400/20"
-        />
-        <InfoCard 
-          icon={Zap} 
-          title="賽季規律" 
-          description="掌握賽季更迭的節奏，提前佈局霸業與霸業獎勵的獲取策略。"
-          color="text-purple-400"
-          bg="bg-purple-400/5"
-          border="border-purple-400/20"
-          className="md:col-span-2"
-        />
-      </div>
-
-      <div className="mt-16 p-8 glass rounded-2xl border-white/5 text-center">
-        <h3 className="text-xl font-serif mb-2">更多內容即將推出</h3>
-        <p className="text-foreground-muted">
-          我們正在持續整理與更新更多深度的系統解析，敬請期待。
-        </p>
-      </div>
-    </div>
-  );
+interface LinkCardProps {
+    title: string;
+    description: string;
+    href: string;
+    icon: React.ElementType;
+    external?: boolean;
+    color: string;
 }
 
-function InfoCard({ icon: Icon, title, description, color, bg, border, className = "" }: any) {
-  return (
-    <motion.div 
-      whileHover={{ y: -5 }}
-      className={`p-6 rounded-xl border ${border} ${bg} ${className} transition-all duration-300 hover:shadow-lg`}
-    >
-      <div className={`mb-4 ${color}`}>
-        <Icon size={24} />
-      </div>
-      <h3 className="text-xl font-serif mb-2">{title}</h3>
-      <p className="text-foreground-muted leading-relaxed">{description}</p>
-    </motion.div>
-  );
+function LinkCard({ title, description, href, icon: Icon, external, color }: LinkCardProps) {
+    const content = (
+        <motion.div
+            whileHover={{ y: -5 }}
+            className={`p-6 rounded-xl border border-white/10 bg-white/5 transition-all duration-300 hover:border-accent-gold/30 hover:bg-accent-gold/5`}
+        >
+            <div className={`mb-4 ${color}`}>
+                <Icon size={28} />
+            </div>
+            <h3 className='text-xl font-serif mb-2 flex items-center gap-2'>
+                {title}
+                {external && <ExternalLink size={14} className='opacity-50' />}
+            </h3>
+            <p className='text-foreground-muted leading-relaxed'>{description}</p>
+        </motion.div>
+    );
+
+    if (external) {
+        return (
+            <a href={href} target='_blank' rel='noopener noreferrer' className='block'>
+                {content}
+            </a>
+        );
+    }
+
+    return (
+        <Link href={href} className='block'>
+            {content}
+        </Link>
+    );
+}
+
+export default function InfoPage() {
+    return (
+        <div className='py-12 md:py-20 max-w-4xl mx-auto px-4'>
+            <header className='mb-12 text-center'>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className='mb-6 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-qun/10 text-qun border border-qun/20'
+                >
+                    <Info size={32} />
+                </motion.div>
+                <h1 className='text-4xl font-serif mb-4 text-accent-gold'>關於本站</h1>
+                <p className='text-foreground-muted text-lg max-w-2xl mx-auto'>
+                    三謀資料庫是一個非官方的《三國：謀定天下》武將與戰法資料查詢網站。
+                    旨在幫助玩家快速查找武將屬性、戰法效果與陣容搭配。
+                </p>
+            </header>
+
+            <section className='mb-12'>
+                <h2 className='text-2xl font-serif mb-6 flex items-center gap-2'>
+                    <Globe size={24} className='text-accent-gold' />
+                    相關連結
+                </h2>
+                <div className='grid gap-6 md:grid-cols-2'>
+                    <LinkCard
+                        title='台港澳服官網'
+                        description='台灣、香港、澳門服務官網。'
+                        href='https://sg.163.com/'
+                        icon={Globe}
+                        external
+                        color='text-accent-gold'
+                    />
+                    <LinkCard
+                        title='陸服官網'
+                        description='中國大陸服務官網。'
+                        href='https://sg.163.com/'
+                        icon={Globe}
+                        external
+                        color='text-red-400'
+                    />
+                    <LinkCard
+                        title='官方攻略站'
+                        description='官方攻略資訊站。'
+                        href='https://newslg.biligames.com/gameguide/h5/#/'
+                        icon={MessageSquare}
+                        external
+                        color='text-blue-400'
+                    />
+                    <LinkCard
+                        title='官方 Discord'
+                        description='官方 Discord 伺服器。'
+                        href='https://discord.gg/sanguo'
+                        icon={MessageSquare}
+                        external
+                        color='text-indigo-400'
+                    />
+                    <LinkCard
+                        title='官方 Bilibili'
+                        description='官方 Bilibili 頻道。'
+                        href='https://space.bilibili.com/382194110'
+                        icon={Video}
+                        external
+                        color='text-pink-400'
+                    />
+                </div>
+            </section>
+
+            <section className='mb-12'>
+                <h2 className='text-2xl font-serif mb-6 flex items-center gap-2'>
+                    <Globe size={24} className='text-accent-gold' />
+                    相關網站
+                </h2>
+                <div className='grid gap-6 md:grid-cols-2'>
+                    <LinkCard
+                        title='三謀助手'
+                        description='三謀助手工具網站。'
+                        href='#'
+                        icon={Globe}
+                        external
+                        color='text-green-400'
+                    />
+                </div>
+            </section>
+
+            <section className='mb-12'>
+                <h2 className='text-2xl font-serif mb-6 flex items-center gap-2'>
+                    <Video size={24} className='text-accent-gold' />
+                    主播相關頻道
+                </h2>
+                <div className='p-12 glass rounded-2xl border-white/5 text-center'>
+                    <p className='text-2xl font-serif text-accent-gold'>廣告位招租中~</p>
+                </div>
+            </section>
+
+            <section className='mb-12'>
+                <h2 className='text-2xl font-serif mb-6 flex items-center gap-2'>
+                    <User size={24} className='text-accent-gold' />
+                    個人連結
+                </h2>
+                <div className='grid gap-6 md:grid-cols-2'>
+                    <LinkCard
+                        title='阿祐小舖官方Line帳號'
+                        description='阿祐小舖官方 Line 帳號。'
+                        href='https://line.me'
+                        icon={MessageSquare}
+                        external
+                        color='text-green-500'
+                    />
+                </div>
+            </section>
+
+            <div className='mt-16 p-8 glass rounded-2xl border-white/5 text-center'>
+                <p className='text-foreground-muted text-sm'>
+                    本網站為粉絲製作的非官方作品，僅供學習與交流使用。
+                    <br />
+                    遊戲內容歸屬於杭州遊戲與暴雪娛樂。
+                </p>
+            </div>
+        </div>
+    );
 }

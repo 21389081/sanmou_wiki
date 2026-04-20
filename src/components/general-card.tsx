@@ -7,23 +7,23 @@ import { motion } from "motion/react";
 export type Faction = "魏" | "蜀" | "吳" | "群";
 
 interface GeneralCardProps {
-  名稱: string;
-  陣營: "魏" | "蜀" | "吳" | "群";
-  品質: "橙" | "紫" | "藍";
-  頭像: string;
-  兵種?: string;
+  name: string;
+  camp: "魏" | "蜀" | "吳" | "群";
+  rarity: "橙" | "紫" | "藍";
+  avatar: string;
+  soldier_type?: string;
 }
 
-export default function GeneralCard({ 名稱, 頭像 }: GeneralCardProps) {
+export default function GeneralCard({ name, avatar }: GeneralCardProps) {
   return (
-    <Link href={`/generals/${encodeURIComponent(名稱)}`}>
+    <Link href={`/generals/${encodeURIComponent(name)}`}>
       <motion.div
         layout
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
         whileHover={{ y: -8 }}
-        title={名稱}
+        title={name}
         className="relative group bg-surface rounded-xl overflow-hidden border border-white/5 hover:border-accent-gold/40 shadow-2xl aspect-[159/248] w-full"
       >
         {/* Character Image */}
@@ -34,8 +34,8 @@ export default function GeneralCard({ 名稱, 頭像 }: GeneralCardProps) {
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <Image
-              src={頭像}
-              alt={名稱}
+              src={avatar}
+              alt={name}
               fill
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
               className="object-contain"

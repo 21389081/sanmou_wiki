@@ -27,7 +27,7 @@ const rankStyles: Record<TacticRank, string> = {
 export default function TacticDetailContent({ tactic }: { tactic: Tactic }) {
   const [tacticLevel, setTacticLevel] = useState<1 | 10>(10);
 
-  const Icon = typeIcons[tactic.戰法類型 as TacticType];
+  const Icon = typeIcons[tactic.type as TacticType];
 
   return (
     <div className="py-8 max-w-5xl mx-auto px-4">
@@ -48,8 +48,8 @@ export default function TacticDetailContent({ tactic }: { tactic: Tactic }) {
             className="relative aspect-[3/4] bg-surface rounded-3xl overflow-hidden border border-white/5 shadow-2xl w-full max-w-[280px] lg:max-w-none mx-auto"
           >
             <Image
-              src={tactic.圖示}
-              alt={tactic.戰法名稱}
+              src={tactic.icon}
+              alt={tactic.name}
               fill
               sizes="(max-width: 1024px) 280px, 400px"
               className="object-contain p-4"
@@ -65,31 +65,31 @@ export default function TacticDetailContent({ tactic }: { tactic: Tactic }) {
               <span className="text-accent-gold text-sm font-mono tracking-widest uppercase">戰法詳情卡</span>
               <div className="h-px flex-grow bg-gradient-to-r from-accent-gold/30 to-transparent" />
             </div>
-            <h1 className="text-5xl font-serif mb-4">{tactic.戰法名稱}</h1>
+            <h1 className="text-5xl font-serif mb-4">{tactic.name}</h1>
             <div className="flex flex-wrap gap-3 items-center">
               {/* Rank Tag */}
               <div className={cn(
                 "px-4 py-1.5 border rounded-full text-xs font-bold flex items-center justify-center",
-                rankStyles[tactic.品質 as TacticRank]
+                rankStyles[tactic.rarity as TacticRank]
               )}>
-                品質: {tactic.品質}
+                品質: {tactic.rarity}
               </div>
               {/* Rate Tag */}
               <div className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs text-accent-gold font-bold flex items-center justify-center">
-                發動率: {tactic.發動概率}
+                發動率: {tactic.chance}
               </div>
               {/* Type Tag */}
               <div className="flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-foreground-muted">
                 <Icon size={14} className="text-accent-gold" />
-                <span>{tactic.戰法類型}</span>
+                <span>{tactic.type}</span>
               </div>
               {/* Characteristic Tag */}
               <div className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-foreground-muted flex items-center justify-center">
-                特性: {tactic.戰法特性}
+                特性: {tactic.trait}
               </div>
               {/* Season Tag */}
               <div className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-foreground-muted flex items-center justify-center">
-                {tactic.登場賽季}
+                {tactic.season}
               </div>
             </div>
 
@@ -131,7 +131,7 @@ export default function TacticDetailContent({ tactic }: { tactic: Tactic }) {
                     exit={{ opacity: 0, y: -5 }}
                     transition={{ duration: 0.2 }}
                   >
-                    「{tacticLevel === 1 ? tactic.初級效果 : tactic.滿級效果}」
+                    「{tacticLevel === 1 ? tactic.effect_base : tactic.effect_max}」
                   </motion.span>
                 </AnimatePresence>
               </div>

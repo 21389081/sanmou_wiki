@@ -9,48 +9,48 @@ const rarityMap: Record<string, string> = {
 
 export type General = {
   gid: number
-  名稱: string
-  頭像: string
-  品質: '橙' | '紫' | '藍'
-  陣營: '魏' | '蜀' | '吳' | '群'
-  兵種: string
-  武力: string
-  智力: string
-  統率: string
-  先攻: string
-  自帶戰法名稱: string
-  自帶戰法圖示: string
-  自帶戰法類型: string
-  自帶戰法特性: string
-  自帶戰法發動概率: string
-  自帶戰法初級效果: string
-  自帶戰法滿級效果: string
-  登場賽季: string
-  緣分一id: number | null
-  緣分二id: number | null
-  緣分三id: number | null
-  緣分四id: number | null
+  name: string
+  avatar: string
+  rarity: '橙' | '紫' | '藍'
+  camp: '魏' | '蜀' | '吳' | '群'
+  soldier_type: string
+  strength: string
+  intelligence: string
+  leadership: string
+  initiative: string
+  tactic_name: string
+  tactic_icon: string
+  tactic_type: string
+  tactic_trait: string
+  tactic_chance: string
+  tactic_effect_base: string
+  tactic_effect_max: string
+  season: string
+  fate_id_1: number | null
+  fate_id_2: number | null
+  fate_id_3: number | null
+  fate_id_4: number | null
 }
 
 export type Fate = {
   fid: number
-  緣分名稱: string
-  緣分成員: string | null
-  緣分效果: string
+  name: string
+  members: string | null
+  effect: string
 }
 
 export type Tactic = {
   tid: number
-  戰法名稱: string
-  圖示: string
-  品質: '橙' | '紫' | '藍'
-  戰法類型: string
-  適用兵種: string
-  戰法特性: string
-  發動概率: string
-  初級效果: string
-  滿級效果: string
-  登場賽季: string
+  name: string
+  icon: string
+  rarity: '橙' | '紫' | '藍'
+  type: string
+  soldier_type: string
+  trait: string
+  chance: string
+  effect_base: string
+  effect_max: string
+  season: string
 }
 
 export async function getGenerals(): Promise<General[]> {
@@ -64,8 +64,8 @@ export async function getGenerals(): Promise<General[]> {
 
   return (data || []).map((g) => ({
     ...g,
-    品質: rarityMap[g.品質 as keyof typeof rarityMap] as '橙' | '紫' | '藍',
-    頭像: getGeneralImage(g.頭像),
+    rarity: rarityMap[g.rarity as keyof typeof rarityMap] as '橙' | '紫' | '藍',
+    avatar: getGeneralImage(g.avatar),
   }))
 }
 
@@ -80,8 +80,8 @@ export async function getTactics(): Promise<Tactic[]> {
 
   return (data || []).map((t) => ({
     ...t,
-    品質: rarityMap[t.品質 as keyof typeof rarityMap] as '橙' | '紫' | '藍',
-    圖示: getTacticImage(t.圖示),
+    rarity: rarityMap[t.rarity as keyof typeof rarityMap] as '橙' | '紫' | '藍',
+    icon: getTacticImage(t.icon),
   }))
 }
 
@@ -91,7 +91,7 @@ export async function getGeneralByName(name: string): Promise<General | null> {
   const { data, error } = await supabase
     .from('generals_info')
     .select('*')
-    .eq('名稱', name)
+    .eq('name', name)
     .single()
 
   if (error) {
@@ -101,21 +101,22 @@ export async function getGeneralByName(name: string): Promise<General | null> {
 
   return {
     ...data,
-    品質: rarityMap[data.品質 as keyof typeof rarityMap] as '橙' | '紫' | '藍',
-    頭像: getGeneralImage(data.頭像),
-    自帶戰法圖示: getGeneralTacticImage(data.自帶戰法圖示),
+    rarity: rarityMap[data.rarity as keyof typeof rarityMap] as '橙' | '紫' | '藍',
+    avatar: getGeneralImage(data.avatar),
+    tactic_icon: getGeneralTacticImage(data.tactic_icon),
   }
 }
 
-export async function getFatesByIds(ids: number[]): Promise<Fate[]> {
-  if (ids.length === 0) return []
+export async function getFatesByIds(ids: (number | null)[]): Promise<Fate[]> {
+  const validIds = ids.filter((id): id is number => id !== null && id !== undefined)
+  if (validIds.length === 0) return []
   
   const supabase = await createClient()
 
   const { data, error } = await supabase
     .from('fate_info')
     .select('*')
-    .in('fid', ids)
+    .in('fid', validIds)
 
   if (error) {
     throw new Error(error.message)
@@ -130,7 +131,7 @@ export async function getTacticByName(name: string): Promise<Tactic | null> {
   const { data, error } = await supabase
     .from('tactics_info')
     .select('*')
-    .eq('戰法名稱', name)
+    .eq('name', name)
     .single()
 
   if (error) {
@@ -140,7 +141,7 @@ export async function getTacticByName(name: string): Promise<Tactic | null> {
 
   return {
     ...data,
-    品質: rarityMap[data.品質 as keyof typeof rarityMap] as '橙' | '紫' | '藍',
-    圖示: getTacticImage(data.圖示),
+    rarity: rarityMap[data.rarity as keyof typeof rarityMap] as '橙' | '紫' | '藍',
+    icon: getTacticImage(data.icon),
   }
 }

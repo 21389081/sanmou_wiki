@@ -1,31 +1,27 @@
-import { getGeneralByName, getFatesByIds } from "@/lib/api";
-import GeneralDetailContent from "./general-detail-content";
+import { getGeneralByName, getFatesByIds } from '@/lib/api';
+import GeneralDetailContent from './general-detail-content';
+import { Link } from 'lucide-react';
 
 export default async function GeneralDetailPage({ params }: { params: Promise<{ name: string }> }) {
-  const { name } = await params;
-  const decodedName = decodeURIComponent(name);
-  
-  const general = await getGeneralByName(decodedName);
+    const { name } = await params;
+    const decodedName = decodeURIComponent(name);
 
-  if (!general) {
-    return (
-      <div className="py-20 text-center">
-        <h1 className="text-2xl font-serif mb-4">找不到該武將</h1>
-        <a href="/generals" className="text-accent-gold flex items-center gap-2 mx-auto">
-          返回圖鑑
-        </a>
-      </div>
-    );
-  }
+    const general = await getGeneralByName(decodedName);
 
-  const fateIds = [
-    general.緣分一id,
-    general.緣分二id,
-    general.緣分三id,
-    general.緣分四id,
-  ].filter((id): id is number => id !== null);
+    if (!general) {
+        return (
+            <div className='py-20 text-center'>
+                <h1 className='text-2xl font-serif mb-4'>找不到該武將</h1>
+                <Link href='/generals' className='text-accent-gold flex items-center gap-2 mx-auto'>
+                    返回圖鑑
+                </Link>
+            </div>
+        );
+    }
 
-  const fates = await getFatesByIds(fateIds);
+    const fateIds = [general.fate_id_1, general.fate_id_2, general.fate_id_3, general.fate_id_4];
 
-  return <GeneralDetailContent general={general} fates={fates} />;
+    const fates = await getFatesByIds(fateIds);
+
+    return <GeneralDetailContent general={general} fates={fates} />;
 }
