@@ -195,7 +195,7 @@ src/
 
 ---
 
-## 🔧 可用腳本
+##  可用腳本
 
 ```bash
 npm run dev    # 開發伺服器 http://localhost:3000
@@ -206,7 +206,7 @@ npm run lint  # ESLint 檢查
 
 ---
 
-## 📝 設計 Token (`src/app/globals.css`)
+##  設計 Token (`src/app/globals.css`)
 
 | Token                    | 用途                      |
 | ------------------------ | ------------------------- |
@@ -218,6 +218,6 @@ npm run lint  # ESLint 檢查
 
 ---
 
-## 📜 License
+##  License
 
 MIT
