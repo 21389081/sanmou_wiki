@@ -23,6 +23,15 @@ export const metadata: Metadata = {
         icon: '/mou_icon-removebg.png',
         apple: '/mou_icon-removebg.png',
     },
+    verification: {
+        google: '<meta name="google-site-verification" content="CSa5XYXIauAEOVaCu3POqH5lOKi91rKvdkiYs6aoz0A" />',
+    },
+};
+
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    // 你原本的其他設定...
 };
 
 export default function RootLayout({
