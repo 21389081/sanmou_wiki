@@ -112,8 +112,10 @@ src/
 │   │   └── page.tsx            # 關於頁面
 │   ├── buffs/
 │   │   └── page.tsx           # 增益頁面
-│   └── stats/
-│       └── page.tsx            # 屬性頁面
+│   ├── stats/
+│   │   └── page.tsx            # 屬性頁面
+│   ├── builder/                   # 配將模擬器
+│   └── admin_join_team/           # 隊伍管理後台
 ├── components/
 │   ├── navbar.tsx               # 響應式導覽欄（含搜尋功能）
 │   ├── general-card.tsx           # 武將卡片
@@ -132,13 +134,14 @@ src/
 
 ## API 函式 (`src/lib/api.ts`)
 
-| 函式                     | 用途                   |
-| ------------------------ | ---------------------- |
-| `getGenerals()`          | 取得所有武將           |
-| `getTactics()`           | 取得所有戰法           |
-| `getGeneralByName(name)` | 依名稱取得單一武將詳情 |
-| `getTacticByName(name)`  | 依名稱取得單一戰法詳情 |
-| `getFatesByIds(ids)`     | 依 ID 陣列取得緣分資料 |
+| 函式                        | 用途                         |
+| --------------------------- | ---------------------------- |
+| `getGenerals()`             | 取得所有武將                 |
+| `getTactics()`              | 取得所有戰法                  |
+| `getGeneralByName(name)`    | 依名稱取得單一武將詳情        |
+| `getTacticByName(name)`    | 依名稱取得單一戰法詳情       |
+| `getFatesByIds(ids)`        | 依 ID 陣列取得緣分資料         |
+| `getTeams(filters?)`        | 隊伍與配將（含 tier 排序）   |
 
 ---
 

@@ -12,8 +12,13 @@ const notoSerif = Noto_Serif_TC({
 });
 
 export const metadata: Metadata = {
-    title: '三國：謀定天下 | 數據庫 Wiki',
-    description: '精緻國風特色的《三國：謀定天下》武將圖鑑、戰法資料與深度攻略資料庫。',
+    title: {
+        default: '三謀資料庫',
+        template: '%s',
+    },
+    description: '《三國：謀定天下》武將圖鑑、戰法資料與深度攻略資料庫。',
+    keywords: ['三國：謀定天下', '三謀', '武將', '戰法', '配將', '攻略'],
+    authors: [{ name: '三謀資料庫' }],
     icons: {
         icon: '/mou_icon-removebg.png',
         apple: '/mou_icon-removebg.png',

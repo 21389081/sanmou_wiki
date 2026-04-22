@@ -4,9 +4,9 @@
 
 ```bash
 npm run dev    # 開發伺服器 http://localhost:3000
-npm run build # 生產建置（含 typecheck）
-npm run start # 啟動已建置的生產伺服器
-npm run lint  # ESLint 檢查
+npm run build  # 生產建置（含 typecheck）
+npm run start  # 啟動已建置的生產伺服器
+npm run lint   # ESLint 9 (flat config)
 ```
 
 ## 環境設定
@@ -23,27 +23,32 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 - **語言**：TypeScript (strict mode)
 - **樣式**：Tailwind CSS v4，自定義 token 在 `src/app/globals.css`
 - **後端**：Supabase (SSR Client)
+- **動畫**：Motion v12
+- **無 test framework**，無單獨 typecheck 命令（`build` 會進行 typecheck）
 
-### 主要目錄
+## 主要目錄
 
 | 目錄 | 用途 |
 |------|------|
-| `src/app/` | 頁面路由 (`generals/`, `tactics/`, `buffs/`, `stats/`, `info/`, `builder/`, `api/`) |
+| `src/app/` | 頁面路由 (`generals/`, `tactics/`, `buffs/`, `stats/`, `info/`, `builder/`, `admin_join_team/`) |
 | `src/components/` | 共用元件 (`Navbar`, `GeneralCard`, `TacticCard`, `LayoutTransition`) |
-| `src/lib/api.ts` | Supabase 查詢函式 |
-| `src/lib/supabase/` | Client/Server/Storage 相關函式 |
+| `src/lib/api.ts` | Supabase 查詢函式（Server Component 用） |
+| `src/lib/supabase/` | `server.ts` 用於 RSC；`storage.ts` 處理圖片 URL |
+| `.agents/skills/` | 專案專用 skills（frontend-design） |
+| `.claude/skills/` | Claude 內建 skills（playwright-cli） |
 
-### API 函式 (`src/lib/api.ts`)
+## API 函式 (`src/lib/api.ts`)
 
 - `getGenerals()` - 取得所有武將
 - `getTactics()` - 取得所有戰法
 - `getGeneralByName(name)` - 武將詳情
 - `getTacticByName(name)` - 戰法詳情
 - `getFatesByIds(ids)` - 緣分資料
-- `getTeams(filters?)` - 取得所有隊伍與配將資料
+- `getTeams(filters?)` - 隊伍與配將，含 tier 排序（T0 > T0.5 > ... > T3）
 
-## 注意事項
+## 特殊約定
 
-- 無 test framework，無單獨 typecheck 命令（`build` 會進行 typecheck）
-- 圖片來自 Supabase Storage，需設定 `next.config.ts` remotePatterns
-- `buff&debuff.md` 包含遊戲數值參考文件
+- **Supabase SSR**：`createClient()` 只能在 Server Component 或 Server Action 中呼叫（使用 cookies）
+- **圖片 Storage bucket**：`img`，路徑格式 `generals/`, `tactics/`, `general's tactics/`
+- **rarity 轉換**：API 回傳 `orange/purple/blue`，需映射為 `橙/紫/藍`
+- **Tier 排序**：`src/lib/api.ts` 內有 `tierOrder` 映射，修改順序需同步更新
