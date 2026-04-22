@@ -28,12 +28,6 @@ export const metadata: Metadata = {
     },
 };
 
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-    // 你原本的其他設定...
-};
-
 export default function RootLayout({
     children,
 }: Readonly<{
