@@ -8,6 +8,7 @@ import { createClient } from '@/lib/supabase/client';
 import { getGeneralImage, getTacticImage } from '@/lib/supabase/storage';
 import { fetchFilterOptions, fetchFilteredTeams } from './actions';
 import { Team } from '@/lib/api';
+import TeamCard from '@/components/team-card';
 
 type General = {
     gid: number;
@@ -377,66 +378,16 @@ export default function BuilderPage() {
                             喔不，找不到符合條件的陣容，請嘗試減少過濾條件。
                         </div>
                     ) : (
-                        // 依照 Tier 的選項順序渲染群組
                         tiers
                             .filter((tier) => groupedTeams[tier])
                             .map((tier) => (
                                 <div key={tier} className='space-y-4'>
-                                    <h2 className='text-2xl font-serif text-accent-gold border-b border-white/10 pb-2'>
-                                        {tier} 陣容
+                                    <h2 className='text-xl font-serif text-accent-gold'>
+                                        {tier}
                                     </h2>
-                                    <div className='grid grid-cols-1 xl:grid-cols-2 gap-4'>
+                                    <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
                                         {groupedTeams[tier].map((team) => (
-                                            <div
-                                                key={team.team_id}
-                                                className='glass p-4 rounded-xl border-white/5 space-y-3'
-                                            >
-                                                <div className='flex justify-between items-center'>
-                                                    <h3 className='font-medium text-lg'>{team.team_name}</h3>
-                                                    <div className='flex gap-2 text-xs'>
-                                                        <span className='px-2 py-1 bg-white/10 rounded'>
-                                                            {team.season}
-                                                        </span>
-                                                        {team.formation && (
-                                                            <span className='px-2 py-1 bg-white/10 rounded'>
-                                                                {team.formation}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                </div>
-
-                                                <div className='grid grid-cols-3 gap-2'>
-                                                    {team.members.map((member) => (
-                                                        <div
-                                                            key={member.members_id}
-                                                            className='bg-black/20 p-2 rounded-lg flex flex-col items-center text-center gap-2'
-                                                        >
-                                                            <div className='relative w-12 h-12 rounded overflow-hidden'>
-                                                                {member.general_img && (
-                                                                    <Image
-                                                                        src={member.general_img}
-                                                                        alt={member.general_name}
-                                                                        fill
-                                                                        sizes='48px'
-                                                                        className='object-cover'
-                                                                    />
-                                                                )}
-                                                            </div>
-                                                            <span className='text-sm font-medium'>
-                                                                {member.general_name}
-                                                            </span>
-                                                            <div className='text-xs text-foreground-muted space-y-1 w-full'>
-                                                                <div className='truncate px-1 bg-white/5 rounded py-0.5'>
-                                                                    {member.skill_1 || '-'}
-                                                                </div>
-                                                                <div className='truncate px-1 bg-white/5 rounded py-0.5'>
-                                                                    {member.skill_2 || '-'}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
+                                            <TeamCard key={team.team_id} team={team} />
                                         ))}
                                     </div>
                                 </div>
