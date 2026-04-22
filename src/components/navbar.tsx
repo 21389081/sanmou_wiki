@@ -124,11 +124,11 @@ export default function Navbar() {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflow = '';
         }
 
         return () => {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflow = '';
         };
     }, [isOpen]);
 
@@ -419,8 +419,45 @@ export default function Navbar() {
                         {/* Mobile Nav Items */}
                         <div className='flex flex-col gap-2'>
                             {navItems.map((item, index) => {
-                                const isActive = pathname === item.href;
                                 const isExternal = item.href.startsWith('http');
+                                const hasDropdown = 'hasDropdown' in item && item.hasDropdown;
+
+                                if (hasDropdown && item.dropdownItems) {
+                                    return (
+                                        <motion.div
+                                            key={item.name}
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.05 }}
+                                            className='flex flex-col gap-1'
+                                        >
+                                            {item.dropdownItems.map((dropItem) => {
+                                                const isActive = pathname === dropItem.href;
+                                                return (
+                                                    <Link
+                                                        key={dropItem.href}
+                                                        href={dropItem.href}
+                                                        onClick={() => setIsOpen(false)}
+                                                        className={cn(
+                                                            'flex items-center gap-3 p-4 rounded-xl text-base transition-all border border-transparent',
+                                                            isActive
+                                                                ? 'bg-accent-gold/10 text-accent-gold font-bold'
+                                                                : 'bg-white/2 text-foreground-muted',
+                                                        )}
+                                                    >
+                                                        <dropItem.icon size={20} />
+                                                        <span className='grow'>{dropItem.name}</span>
+                                                        {isActive && (
+                                                            <div className='w-1.5 h-1.5 rounded-full bg-accent-gold shadow-[0_0_10px_rgba(212,175,55,0.8)]' />
+                                                        )}
+                                                    </Link>
+                                                );
+                                            })}
+                                        </motion.div>
+                                    );
+                                }
+
+                                const isActive = pathname === item.href;
                                 return (
                                     <motion.div
                                         key={item.href}
@@ -432,6 +469,7 @@ export default function Navbar() {
                                             href={item.href}
                                             target={isExternal ? '_blank' : undefined}
                                             rel={isExternal ? 'noopener noreferrer' : undefined}
+                                            onClick={() => setIsOpen(false)}
                                             className={cn(
                                                 'flex items-center gap-3 p-4 rounded-xl text-base transition-all border border-transparent',
                                                 isActive
