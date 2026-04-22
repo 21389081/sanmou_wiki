@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         apple: '/mou_icon-removebg.png',
     },
     verification: {
-        google: '<meta name="google-site-verification" content="CSa5XYXIauAEOVaCu3POqH5lOKi91rKvdkiYs6aoz0A" />',
+        google: 'CSa5XYXIauAEOVaCu3POqH5lOKi91rKvdkiYs6aoz0A',
     },
 };
 
