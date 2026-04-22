@@ -13,3 +13,7 @@ export function getTacticImage(filename: string) {
 export function getGeneralTacticImage(filename: string) {
   return getStorageUrl('img', `general's tactics/${filename}`)
 }
+
+export function getTeamGeneralImage(filename: string) {
+  return getStorageUrl('img', `generals/${filename}`)
+}

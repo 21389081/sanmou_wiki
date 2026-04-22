@@ -28,10 +28,10 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 | 目錄 | 用途 |
 |------|------|
-| `src/app/` | 頁面路由 (`generals/`, `tactics/`, `buffs/`, `stats/`, `info/`) |
+| `src/app/` | 頁面路由 (`generals/`, `tactics/`, `buffs/`, `stats/`, `info/`, `builder/`, `api/`) |
 | `src/components/` | 共用元件 (`Navbar`, `GeneralCard`, `TacticCard`, `LayoutTransition`) |
 | `src/lib/api.ts` | Supabase 查詢函式 |
-| `src/lib/supabase/` | Client/Server/SRSC client |
+| `src/lib/supabase/` | Client/Server/Storage 相關函式 |
 
 ### API 函式 (`src/lib/api.ts`)
 
@@ -40,6 +40,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 - `getGeneralByName(name)` - 武將詳情
 - `getTacticByName(name)` - 戰法詳情
 - `getFatesByIds(ids)` - 緣分資料
+- `getTeams(filters?)` - 取得所有隊伍與配將資料
 
 ## 注意事項
 

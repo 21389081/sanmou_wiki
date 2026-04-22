@@ -15,6 +15,9 @@ import {
     Info,
     Swords,
     Shield,
+    Puzzle,
+    ChevronDown,
+    BookOpen,
 } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -36,8 +39,11 @@ type Tactic = {
 
 const navItems = [
     { name: '首頁', href: '/', icon: Home },
-    { name: '武將圖鑑', href: '/generals', icon: Users },
-    { name: '戰法圖鑑', href: '/tactics', icon: Sword },
+    { name: '配將助手', href: '/builder', icon: Puzzle },
+    { name: '圖鑑', href: '/generals', icon: BookOpen, hasDropdown: true, dropdownItems: [
+        { name: '武將圖鑑', href: '/generals', icon: Users },
+        { name: '戰法圖鑑', href: '/tactics', icon: Sword },
+    ]},
     { name: '詞條一覽', href: '/stats', icon: Shield },
     { name: '狀態一覽', href: '/buffs', icon: Swords },
     {
@@ -52,6 +58,7 @@ const navItems = [
 export default function Navbar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
     const [prevPathname, setPrevPathname] = useState(pathname);
     const [searchTerm, setSearchTerm] = useState('');
     const [showResults, setShowResults] = useState(false);
@@ -59,6 +66,7 @@ export default function Navbar() {
     const [tactics, setTactics] = useState<Tactic[]>([]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -89,6 +97,9 @@ export default function Navbar() {
         const handleClickOutside = (e: MouseEvent) => {
             if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
                 setShowResults(false);
+            }
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+                setDropdownOpen(false);
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -139,6 +150,63 @@ export default function Navbar() {
                         {navItems.map((item) => {
                             const isActive = pathname === item.href;
                             const isExternal = item.href.startsWith('http');
+                            const hasDropdown = 'hasDropdown' in item && item.hasDropdown;
+
+                            if (hasDropdown) {
+                                return (
+                                    <div key={item.href} className='relative' ref={dropdownRef}>
+                                        <button
+                                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                                            className={cn(
+                                                'px-4 py-2 rounded-md text-sm flex items-center gap-2 transition-colors cursor-pointer',
+                                                dropdownOpen
+                                                    ? 'text-accent-gold'
+                                                    : 'text-foreground-muted hover:text-foreground',
+                                            )}
+                                        >
+                                            <item.icon size={16} />
+                                            <span>{item.name}</span>
+                                            <ChevronDown
+                                                size={12}
+                                                className={cn(
+                                                    'transition-transform',
+                                                    dropdownOpen && 'rotate-180',
+                                                )}
+                                            />
+                                        </button>
+                                        <AnimatePresence>
+                                            {dropdownOpen && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: -10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: -10 }}
+                                                    className='absolute top-full left-0 mt-1 py-2 bg-surface border border-white/10 rounded-lg shadow-xl z-50 min-w-40'
+                                                >
+                                                    {item.dropdownItems?.map((dropItem) => (
+                                                        <Link
+                                                            key={dropItem.href}
+                                                            href={dropItem.href}
+                                                            onClick={() => {
+                                                                setDropdownOpen(false);
+                                                            }}
+                                                            className={cn(
+                                                                'flex items-center gap-2 px-4 py-2 text-sm transition-colors',
+                                                                pathname === dropItem.href
+                                                                    ? 'text-accent-gold bg-accent-gold/10'
+                                                                    : 'text-foreground-muted hover:text-foreground hover:bg-white/5',
+                                                            )}
+                                                        >
+                                                            <dropItem.icon size={16} />
+                                                            <span>{dropItem.name}</span>
+                                                        </Link>
+                                                    ))}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                );
+                            }
+
                             return (
                                 <Link
                                     key={item.href}
@@ -187,7 +255,7 @@ export default function Navbar() {
                                 setShowResults(true);
                             }}
                             onFocus={() => setShowResults(true)}
-                            className='bg-white/5 border border-white/10 rounded-full py-1.5 pl-10 pr-4 text-sm focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all w-40 md:w-48 lg:w-64'
+                            className='bg-white/5 border border-white/10 rounded-full py-1.5 pl-10 pr-4 text-sm focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all w-32 md:w-36 lg:w-40'
                         />
                         {showResults && searchTerm && dataLoaded && (
                             <motion.div
