@@ -372,7 +372,7 @@ export default function BuilderPage() {
 
             {/* Results Display */}
             {hasSearched && (
-                <div className='space-y-8'>
+                <div className='space-y-8 border border-accent-gold/30 rounded-xl p-4'>
                     {Object.keys(groupedTeams).length === 0 ? (
                         <div className='text-center py-12 text-foreground-muted'>
                             喔不，找不到符合條件的陣容，請嘗試減少過濾條件。
@@ -382,9 +382,10 @@ export default function BuilderPage() {
                             .filter((tier) => groupedTeams[tier])
                             .map((tier) => (
                                 <div key={tier} className='space-y-4'>
-                                    <h2 className='text-xl font-serif text-accent-gold'>
+                                    <h2 className='text-xl font-serif text-accent-gold text-center'>
                                         {tier}
                                     </h2>
+                                    <div className='h-px bg-gradient-to-r from-transparent via-accent-gold/50 to-transparent' />
                                     <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
                                         {groupedTeams[tier].map((team) => (
                                             <TeamCard key={team.team_id} team={team} />

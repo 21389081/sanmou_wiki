@@ -29,7 +29,7 @@ export default function RootLayout({
         <html lang='zh-TW' className={`${inter.variable} ${notoSerif.variable}`}>
             <body className='antialiased min-h-screen flex flex-col text-foreground selection:bg-accent-gold/30 selection:text-accent-gold'>
                 <Navbar />
-                <main className='pt-20 px-4 max-w-7xl mx-auto flex-grow w-full'>
+                <main className='pt-20 px-4 max-w-7xl mx-auto flex-grow w-full overflow-hidden'>
                     <LayoutTransition>{children}</LayoutTransition>
                 </main>
                 <footer className='py-8 border-t border-white/5 text-center text-foreground-muted text-sm px-4'>
