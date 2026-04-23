@@ -24,8 +24,8 @@ function GeneralCard({ member }: { member: Team["members"][0] }) {
       </div>
       <div className="font-medium text-center">{member.general_name}</div>
       <div className="text-center space-y-0.5">
-        <div className="text-base">{member.skill_1 || "-"}</div>
-        <div className="text-base">{member.skill_2 || "-"}</div>
+        <div className="text-xs sm:text-base">{member.skill_1 || "-"}</div>
+        <div className="text-xs sm:text-base">{member.skill_2 || "-"}</div>
       </div>
       <div className="border-t border-white/10" />
       <DetailRow label="兵種" value={member.soldier_type} />
@@ -45,9 +45,12 @@ function GeneralCard({ member }: { member: Team["members"][0] }) {
 function DetailRow({ label, value }: { label: string; value: string }) {
   if (!value) return null;
   return (
-    <div className="flex justify-between text-sm">
-      <span className="text-foreground-muted flex-shrink-0">{label}</span>
-      <span className="whitespace-pre-wrap text-right">{value}</span>
+    <div className="sm:flex sm:justify-between text-xs sm:text-sm">
+      <span className="text-foreground-muted flex-shrink-0 sm:block hidden">{label}</span>
+      <div className="space-y-0.5 sm:space-y-0">
+        <div className="sm:hidden text-foreground-muted text-xs">{label}</div>
+        <span className="whitespace-pre-wrap sm:block">{value}</span>
+      </div>
     </div>
   );
 }
