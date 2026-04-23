@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Plus, Loader2, Lock } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
@@ -62,6 +62,8 @@ export default function AdminJoinTeamPage() {
     const [generalSearch, setGeneralSearch] = useState('');
     const [tacticSearch, setTacticSearch] = useState('');
     const [activeDropdown, setActiveDropdown] = useState<{ index: number; field: string } | null>(null);
+    const [justFilled, setJustFilled] = useState<{ [key: string]: boolean }>({});
+    const inputRef = useRef<{ [key: string]: HTMLInputElement | null }>({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -107,6 +109,25 @@ export default function AdminJoinTeamPage() {
             updated[index] = { ...updated[index], [field]: value };
             return updated;
         });
+    };
+
+    const selectFirstGeneral = (index: number) => {
+        if (filteredGenerals.length > 0) {
+            const g = filteredGenerals[0];
+            updateMember(index, 'general_name', g.name);
+            updateMember(index, 'general_img', g.originalAvatar || '');
+            setActiveDropdown(null);
+            setJustFilled((prev) => ({ ...prev, [`g${index}`]: true }));
+        }
+    };
+
+    const selectFirstTactic = (index: number, field: 'skill_1' | 'skill_2') => {
+        if (filteredTactics.length > 0) {
+            const t = filteredTactics[0];
+            updateMember(index, field, t.name);
+            setActiveDropdown(null);
+            setJustFilled((prev) => ({ ...prev, [`t${index}${field}`]: true }));
+        }
     };
 
     const handleSubmit = async () => {
@@ -243,7 +264,19 @@ export default function AdminJoinTeamPage() {
                 <div className='glass p-8 rounded-2xl border border-accent-gold/30 text-center'>
                     <div className='text-accent-gold text-xl mb-4'>新增成功！</div>
                     <button
-                        onClick={() => window.location.reload()}
+                        onClick={() => {
+                            setSuccess(false);
+                            setTeamName('');
+                            setTier('');
+                            setFormation('');
+                            setSeason('');
+                            setNote('');
+                            setMembers([
+                                { general_name: '', general_img: '', skill_1: '', skill_2: '', soldier_type: '', soldier_skills: '', book_1: '', book_2: '', book_3: '', equip_point: '', equip_stats: '', horse_stats: '', plus_points: '' },
+                                { general_name: '', general_img: '', skill_1: '', skill_2: '', soldier_type: '', soldier_skills: '', book_1: '', book_2: '', book_3: '', equip_point: '', equip_stats: '', horse_stats: '', plus_points: '' },
+                                { general_name: '', general_img: '', skill_1: '', skill_2: '', soldier_type: '', soldier_skills: '', book_1: '', book_2: '', book_3: '', equip_point: '', equip_stats: '', horse_stats: '', plus_points: '' },
+                            ]);
+                        }}
                         className='px-6 py-2 bg-accent-gold text-background rounded-lg hover:bg-accent-gold/90 transition-colors'
                     >
                         繼續新增
@@ -338,6 +371,18 @@ export default function AdminJoinTeamPage() {
                                             setGeneralSearch(e.target.value);
                                             setActiveDropdown({ index, field: 'general' });
                                         }}
+                                        onKeyDown={(e) => {
+                                            const key = `g${index}`;
+                                            if (e.key === 'Tab') {
+                                                if (justFilled[key]) {
+                                                    setJustFilled((prev) => ({ ...prev, [key]: false }));
+                                                } else if (filteredGenerals.length > 0) {
+                                                    e.preventDefault();
+                                                    selectFirstGeneral(index);
+                                                }
+                                            }
+                                        }}
+                                        ref={(el) => (inputRef.current[`g${index}`] = el)}
                                         onFocus={() => {
                                             setGeneralSearch(member.general_name);
                                             setActiveDropdown({ index, field: 'general' });
@@ -395,6 +440,17 @@ export default function AdminJoinTeamPage() {
                                             setTacticSearch(e.target.value);
                                             setActiveDropdown({ index, field: 'skill_1' });
                                         }}
+                                        onKeyDown={(e) => {
+                                            const key = `t${index}skill_1`;
+                                            if (e.key === 'Tab') {
+                                                if (justFilled[key]) {
+                                                    setJustFilled((prev) => ({ ...prev, [key]: false }));
+                                                } else if (filteredTactics.length > 0) {
+                                                    e.preventDefault();
+                                                    selectFirstTactic(index, 'skill_1');
+                                                }
+                                            }
+                                        }}
                                         onFocus={() => {
                                             setTacticSearch(member.skill_1);
                                             setActiveDropdown({ index, field: 'skill_1' });
@@ -440,6 +496,17 @@ export default function AdminJoinTeamPage() {
                                             updateMember(index, 'skill_2', e.target.value);
                                             setTacticSearch(e.target.value);
                                             setActiveDropdown({ index, field: 'skill_2' });
+                                        }}
+                                        onKeyDown={(e) => {
+                                            const key = `t${index}skill_2`;
+                                            if (e.key === 'Tab') {
+                                                if (justFilled[key]) {
+                                                    setJustFilled((prev) => ({ ...prev, [key]: false }));
+                                                } else if (filteredTactics.length > 0) {
+                                                    e.preventDefault();
+                                                    selectFirstTactic(index, 'skill_2');
+                                                }
+                                            }
                                         }}
                                         onFocus={() => {
                                             setTacticSearch(member.skill_2);
