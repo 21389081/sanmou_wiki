@@ -5,8 +5,7 @@ import Image from 'next/image';
 import { Plus, Loader2, Lock } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { getGeneralImage, getTacticImage } from '@/lib/supabase/storage';
-
-const ADMIN_PASSWORD = 'vincentchen11610';
+import { verifyAdminPassword } from './actions';
 
 type AdminGeneral = {
     gid: number;
@@ -179,8 +178,9 @@ export default function AdminJoinTeamPage() {
         }
     };
 
-    const handlePasswordSubmit = () => {
-        if (password === ADMIN_PASSWORD) {
+    const handlePasswordSubmit = async () => {
+        const isValid = await verifyAdminPassword(password);
+        if (isValid) {
             setIsAuthenticated(true);
         } else {
             setPasswordError(true);
