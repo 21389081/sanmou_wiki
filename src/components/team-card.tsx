@@ -23,9 +23,11 @@ function GeneralCard({ member }: { member: Team["members"][0] }) {
         )}
       </div>
       <div className="font-medium text-center">{member.general_name}</div>
+      <div className="text-center space-y-0.5">
+        <div className="text-base">{member.skill_1 || "-"}</div>
+        <div className="text-base">{member.skill_2 || "-"}</div>
+      </div>
       <div className="border-t border-white/10" />
-      <DetailRow label="戰法一" value={member.skill_1 || "-"} />
-      <DetailRow label="戰法二" value={member.skill_2 || "-"} />
       <DetailRow label="兵種" value={member.soldier_type} />
       <DetailRow label="專精" value={member.soldier_skills} />
       <DetailRow label="兵書一" value={member.book_1} />
@@ -43,9 +45,9 @@ function GeneralCard({ member }: { member: Team["members"][0] }) {
 function DetailRow({ label, value }: { label: string; value: string }) {
   if (!value) return null;
   return (
-    <div className="flex gap-2 text-sm">
-      <span className="text-foreground-muted w-20 flex-shrink-0">{label}</span>
-      <span className="whitespace-pre-wrap">{value}</span>
+    <div className="flex justify-between text-sm">
+      <span className="text-foreground-muted flex-shrink-0">{label}</span>
+      <span className="whitespace-pre-wrap text-right">{value}</span>
     </div>
   );
 }
