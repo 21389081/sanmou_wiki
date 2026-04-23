@@ -1,66 +1,71 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  /* Faction Colors */
-  --color-wei: #2f5d8c;
-  --color-shu: #9c322e;
-  --color-wu: #3e614a;
-  --color-qun: #b19056;
-  --color-orange: #c46b30;
-  --color-purple: #6b4c8c;
+    /* Faction Colors */
+    --color-wei: #2f5d8c;
+    --color-shu: #9c322e;
+    --color-wu: #3e614a;
+    --color-qun: #b19056;
 
-  /* Theme Colors - Forced Dark Mode Aesthetic */
-  --color-background: #0d0d0d;
-  --color-surface: #1a1a1a;
-  --color-foreground: #e5e5e5;
-  --color-foreground-muted: #a1a1aa;
-  --color-border-primary: rgba(255, 255, 255, 0.1);
-  --color-accent-gold: #c6a664;
+    /* Theme Colors - Forced Dark Mode Aesthetic */
+    --color-background: #0d0d0d;
+    --color-surface: #1a1a1a;
+    --color-foreground: #e5e5e5;
+    --color-foreground-muted: #a1a1aa;
+    --color-border-primary: rgba(255, 255, 255, 0.1);
+    --color-accent-gold: #c6a664;
+    --color-puzzle: #2a7d7d;
+    --color-orange: #c46b30;
+    --color-purple: #6b4c8c;
 
-  /* Typography */
-  --font-serif: "Noto Serif TC", serif;
+    /* Typography */
+    --font-serif: 'Noto Serif TC', serif;
 }
 
 :root {
-  --background: #0d0d0d;
-  --foreground: #e5e5e5;
-  color-scheme: dark;
+    --background: #0d0d0d;
+    --foreground: #e5e5e5;
+    color-scheme: dark;
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans);
-  /* background-image: 
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    /* background-image: 
     radial-gradient(circle at 50% -20%, #1a1a1a, transparent 70%),
     url("https://www.transparenttextures.com/patterns/carbon-fibre.png"); Subtle texture */
-  background-attachment: fixed;
-  -webkit-font-smoothing: antialiased;
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, .font-serif {
-  font-family: var(--font-serif);
-  letter-spacing: 0.05em;
+h1,
+h2,
+h3,
+h4,
+.font-serif {
+    font-family: var(--font-serif);
+    letter-spacing: 0.05em;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d0d0d;
+    background: #0d0d0d;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 10px;
+    background: #333;
+    border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+    background: #444;
 }
 
 /* Glassmorphism utility */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }

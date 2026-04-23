@@ -12,6 +12,7 @@ import {
     Shield,
     Swords,
     MapPin,
+    Puzzle,
 } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
@@ -40,7 +41,6 @@ const tools = [
         href: '/generals',
         icon: Users,
         color: 'bg-wei',
-        delay: 0.1,
     },
     {
         title: '戰法圖鑑',
@@ -48,7 +48,13 @@ const tools = [
         href: '/tactics',
         icon: Sword,
         color: 'bg-shu',
-        delay: 0.2,
+    },
+    {
+        title: '配將助手',
+        description: '根據已擁有武將與戰法，自動推薦符合賽季的主流陣容組合，',
+        href: '/builder',
+        icon: Puzzle,
+        color: 'bg-puzzle',
     },
     {
         title: '詞條一覽',
@@ -56,7 +62,6 @@ const tools = [
         href: '/stats',
         icon: Shield,
         color: 'bg-wu',
-        delay: 0.3,
     },
     {
         title: '狀態一覽',
@@ -64,7 +69,6 @@ const tools = [
         href: '/buffs',
         icon: Swords,
         color: 'bg-qun',
-        delay: 0.4,
     },
     {
         title: '官方攻略站',
@@ -72,7 +76,6 @@ const tools = [
         href: 'https://newslg.biligames.com/gameguide/h5/#/',
         icon: ScrollText,
         color: 'bg-orange',
-        delay: 0.5,
     },
     {
         title: '關於本站',
@@ -80,7 +83,6 @@ const tools = [
         href: '/info',
         icon: Info,
         color: 'bg-purple',
-        delay: 0.6,
     },
 ];
 
@@ -177,7 +179,7 @@ export default function Home() {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: tool.delay, duration: 0.3 }}
+                            transition={{ duration: 0.3 }}
                             whileHover={{ y: -10 }}
                             className='h-full glass rounded-xl p-8 group-hover:bg-white/5 group-hover:border-accent-gold/30 flex flex-col'
                         >
@@ -204,7 +206,7 @@ export default function Home() {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
+                transition={{ duration: 0.6 }}
                 className='mt-24 w-full max-w-4xl px-4 py-8 rounded-2xl glass border-dashed border-white/10 flex flex-col md:flex-row items-center justify-between gap-6'
             >
                 <div className='flex-1'>
