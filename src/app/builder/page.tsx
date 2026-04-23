@@ -10,7 +10,7 @@ import { fetchFilterOptions, fetchFilteredTeams } from './actions';
 import { Team } from '@/lib/api';
 import TeamCard from '@/components/team-card';
 
-type General = {
+type BuilderGeneral = {
     gid: number;
     name: string;
     avatar: string;
@@ -18,7 +18,7 @@ type General = {
     camp: string;
 };
 
-type Tactic = {
+type BuilderTactic = {
     tid: number;
     name: string;
     icon: string;
@@ -39,8 +39,8 @@ const campOrder: Record<string, number> = {
 };
 
 export default function BuilderPage() {
-    const [generals, setGenerals] = useState<General[]>([]);
-    const [tactics, setTactics] = useState<Tactic[]>([]);
+    const [generals, setGenerals] = useState<BuilderGeneral[]>([]);
+    const [tactics, setTactics] = useState<BuilderTactic[]>([]);
     const [selectedGenerals, setSelectedGenerals] = useState<string[]>([]);
     const [selectedTactics, setSelectedTactics] = useState<string[]>([]);
     const [generalSearch, setGeneralSearch] = useState('');

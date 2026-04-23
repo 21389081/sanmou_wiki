@@ -2,24 +2,26 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Plus, Loader2 } from 'lucide-react';
+import { Plus, Loader2, Lock } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { getGeneralImage, getTacticImage } from '@/lib/supabase/storage';
 
-type General = {
+const ADMIN_PASSWORD = 'vincentchen11610';
+
+type AdminGeneral = {
     gid: number;
     name: string;
     avatar: string;
     originalAvatar?: string;
 };
 
-type Tactic = {
+type AdminTactic = {
     tid: number;
     name: string;
     icon: string;
 };
 
-type MemberData = {
+type AdminMemberData = {
     general_name: string;
     general_img: string;
     skill_1: string;
@@ -36,8 +38,11 @@ type MemberData = {
 };
 
 export default function AdminJoinTeamPage() {
-    const [generals, setGenerals] = useState<General[]>([]);
-    const [tactics, setTactics] = useState<Tactic[]>([]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [password, setPassword] = useState('');
+    const [passwordError, setPasswordError] = useState(false);
+    const [generals, setGenerals] = useState<AdminGeneral[]>([]);
+    const [tactics, setTactics] = useState<AdminTactic[]>([]);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -49,7 +54,7 @@ export default function AdminJoinTeamPage() {
     const [season, setSeason] = useState('');
     const [note, setNote] = useState('');
 
-    const [members, setMembers] = useState<MemberData[]>([
+    const [members, setMembers] = useState<AdminMemberData[]>([
         { general_name: '', general_img: '', skill_1: '', skill_2: '', soldier_type: '', soldier_skills: '', book_1: '', book_2: '', book_3: '', equip_point: '', equip_stats: '', horse_stats: '', plus_points: '' },
         { general_name: '', general_img: '', skill_1: '', skill_2: '', soldier_type: '', soldier_skills: '', book_1: '', book_2: '', book_3: '', equip_point: '', equip_stats: '', horse_stats: '', plus_points: '' },
         { general_name: '', general_img: '', skill_1: '', skill_2: '', soldier_type: '', soldier_skills: '', book_1: '', book_2: '', book_3: '', equip_point: '', equip_stats: '', horse_stats: '', plus_points: '' },
@@ -97,7 +102,7 @@ export default function AdminJoinTeamPage() {
         ? tactics.filter((t) => t.name.includes(tacticSearch))
         : tactics;
 
-    const updateMember = (index: number, field: keyof MemberData, value: string) => {
+    const updateMember = (index: number, field: keyof AdminMemberData, value: string) => {
         setMembers((prev) => {
             const updated = [...prev];
             updated[index] = { ...updated[index], [field]: value };
@@ -173,6 +178,51 @@ export default function AdminJoinTeamPage() {
             setSubmitting(false);
         }
     };
+
+    const handlePasswordSubmit = () => {
+        if (password === ADMIN_PASSWORD) {
+            setIsAuthenticated(true);
+        } else {
+            setPasswordError(true);
+            setPassword('');
+        }
+    };
+
+    if (!isAuthenticated) {
+        return (
+            <div className='min-h-screen flex items-center justify-center'>
+                <div className='glass p-8 rounded-2xl border border-white/5 max-w-sm w-full'>
+                    <div className='flex justify-center mb-6'>
+                        <div className='w-16 h-16 bg-accent-gold/10 rounded-full flex items-center justify-center'>
+                            <Lock size={32} className='text-accent-gold' />
+                        </div>
+                    </div>
+                    <h1 className='text-xl font-serif text-center mb-2'>管理員驗證</h1>
+                    <p className='text-foreground-muted text-sm text-center mb-6'>請輸入密碼以繼續</p>
+                    <input
+                        type='password'
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            setPasswordError(false);
+                        }}
+                        onKeyDown={(e) => e.key === 'Enter' && handlePasswordSubmit()}
+                        placeholder='輸入密碼'
+                        className='w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-accent-gold/50 mb-4'
+                    />
+                    {passwordError && (
+                        <p className='text-red-400 text-sm text-center mb-4'>密碼錯誤，請重試</p>
+                    )}
+                    <button
+                        onClick={handlePasswordSubmit}
+                        className='w-full py-2 bg-accent-gold text-background font-medium rounded-lg hover:bg-accent-gold/90 transition-colors'
+                    >
+                        確認
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     if (loading) {
         return (
