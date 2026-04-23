@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from '@/lib/supabase/server';
-import { getTeams, TeamFilters, Team } from '@/lib/api';
+import { getTeams, TeamFilters, Team, parseTierOrder } from '@/lib/api';
 
 export async function fetchFilterOptions() {
     const supabase = await createClient();
@@ -14,20 +14,8 @@ export async function fetchFilterOptions() {
     const uniqueTiers = Array.from(new Set((teams || []).map((t) => t.tier).filter(Boolean)));
     const uniqueSeasons = Array.from(new Set((teams || []).map((t) => t.season).filter(Boolean)));
 
-    // Tier 自定義排序
-    const tierOrder: Record<string, number> = {
-        T0: 0,
-        'T0.5': 1,
-        'T0.3': 2,
-        T1: 3,
-        'T1.5': 4,
-        T2: 5,
-        'T2.5': 6,
-        T3: 7,
-    };
-
     return {
-        tiers: uniqueTiers.sort((a, b) => (tierOrder[a] ?? 99) - (tierOrder[b] ?? 99)),
+        tiers: uniqueTiers.sort((a, b) => parseTierOrder(a) - parseTierOrder(b)),
         seasons: uniqueSeasons.sort(),
     };
 }

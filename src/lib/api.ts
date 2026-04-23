@@ -186,16 +186,13 @@ export type TeamFilters = {
     tier?: string;
 };
 
-const tierOrder: Record<string, number> = {
-    T0: 0,
-    'T0.5': 1,
-    'T0.3': 2,
-    T1: 3,
-    'T1.5': 4,
-    T2: 5,
-    'T2.5': 6,
-    T3: 7,
-};
+function parseTierOrder(tier: string): number {
+    const match = tier.match(/^T(\d+(\.\d+)?)$/);
+    if (!match) return 99;
+    return parseFloat(match[1]) || 99;
+}
+
+export { parseTierOrder };
 
 export async function getTeams(filters?: TeamFilters): Promise<Team[]> {
     const supabase = await createClient();
@@ -273,8 +270,8 @@ export async function getTeams(filters?: TeamFilters): Promise<Team[]> {
     }
 
     result.sort((a, b) => {
-        const orderA = tierOrder[a.tier] ?? 99;
-        const orderB = tierOrder[b.tier] ?? 99;
+        const orderA = parseTierOrder(a.tier);
+        const orderB = parseTierOrder(b.tier);
         return orderA - orderB;
     });
 
