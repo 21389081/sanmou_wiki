@@ -52,3 +52,14 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 - **圖片 Storage bucket**：`img`，路徑格式 `generals/`, `tactics/`, `general's tactics/`
 - **rarity 轉換**：API 回傳 `orange/purple/blue`，需映射為 `橙/紫/藍`
 - **Tier 排序**：`src/lib/api.ts` 內有 `tierOrder` 映射，修改順序需同步更新
+
+## 代理指令
+
+當您在執行任何任務時，如果遇到以下情況，請使用對應的指令：
+
+- **啟動開發伺服器**：`npm run dev`
+- **建置專案**：`npm run build`
+- **啟動生產伺服器**：`npm run start`
+- **程式碼檢查**：`npm run lint`
+
+這些指令是您在開發過程中最常需要用到的，可以幫助您快速進行開發、測試和部署。
