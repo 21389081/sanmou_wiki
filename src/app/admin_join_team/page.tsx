@@ -382,7 +382,7 @@ export default function AdminJoinTeamPage() {
                                                 }
                                             }
                                         }}
-                                        ref={(el) => (inputRef.current[`g${index}`] = el)}
+                                        ref={(el) => { inputRef.current[`g${index}`] = el; }}
                                         onFocus={() => {
                                             setGeneralSearch(member.general_name);
                                             setActiveDropdown({ index, field: 'general' });
