@@ -53,17 +53,17 @@ export default function GeneralGrid({ generals }: { generals: General[] }) {
       </header>
 
       {/* Filters */}
-      <div className="flex flex-col gap-6 mb-12 glass p-6 rounded-2xl border-white/5">
+      <div className="flex flex-col gap-6 mb-12 glass p-4 md:p-6 rounded-2xl border-white/5">
         {/* Faction Filter */}
-        <div className="flex items-center gap-4 flex-wrap">
-          <span className="text-xs text-foreground-muted uppercase tracking-wider">陣營:</span>
-          <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span className="text-xs text-foreground-muted uppercase tracking-wider shrink-0">陣營:</span>
+          <div className="flex flex-wrap gap-2">
             {["全部", ...factions].map(f => (
               <button
                 key={f}
                 onClick={() => setSelectedFaction(f as Faction | "全部")}
                 className={cn(
-                  "px-4 py-1.5 rounded-full text-sm transition-all border",
+                  "px-3 sm:px-4 py-1.5 rounded-full text-sm transition-all border",
                   selectedFaction === f 
                     ? "bg-accent-gold text-background border-accent-gold font-medium" 
                     : "bg-white/5 border-white/10 text-foreground-muted hover:border-white/30"
@@ -76,15 +76,15 @@ export default function GeneralGrid({ generals }: { generals: General[] }) {
         </div>
 
         {/* Quality Filter */}
-        <div className="flex items-center gap-4 flex-wrap">
-          <span className="text-xs text-foreground-muted uppercase tracking-wider">品質:</span>
-          <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span className="text-xs text-foreground-muted uppercase tracking-wider shrink-0">品質:</span>
+          <div className="flex flex-wrap gap-2">
             {["全部", ...qualities].map(q => (
               <button
                 key={q}
                 onClick={() => setSelectedQuality(q as Quality | "全部")}
                 className={cn(
-                  "px-4 py-1.5 rounded-full text-sm transition-all border",
+                  "px-3 sm:px-4 py-1.5 rounded-full text-sm transition-all border",
                   selectedQuality === q 
                     ? "bg-accent-gold text-background border-accent-gold font-medium" 
                     : "bg-white/5 border-white/10 text-foreground-muted hover:border-white/30"
@@ -97,15 +97,15 @@ export default function GeneralGrid({ generals }: { generals: General[] }) {
         </div>
 
         {/* Profession Filter */}
-        <div className="flex items-center gap-4 flex-wrap">
-          <span className="text-xs text-foreground-muted uppercase tracking-wider">兵種:</span>
-          <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span className="text-xs text-foreground-muted uppercase tracking-wider shrink-0">兵種:</span>
+          <div className="flex flex-wrap gap-2">
             {["全部", ...professions].map(p => (
               <button
                 key={p}
                 onClick={() => setSelectedProfession(p as Profession | "全部")}
                 className={cn(
-                  "px-4 py-1.5 rounded-full text-sm transition-all border",
+                  "px-3 sm:px-4 py-1.5 rounded-full text-sm transition-all border",
                   selectedProfession === p 
                     ? "bg-accent-gold text-background border-accent-gold font-medium" 
                     : "bg-white/5 border-white/10 text-foreground-muted hover:border-white/30"

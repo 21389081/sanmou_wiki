@@ -57,17 +57,17 @@ export default function TacticGrid({ tactics }: { tactics: Tactic[] }) {
       </header>
 
       {/* Filters */}
-      <div className="flex flex-col gap-6 mb-12 glass p-6 rounded-2xl border-white/5">
+      <div className="flex flex-col gap-6 mb-12 glass p-4 md:p-6 rounded-2xl border-white/5">
         {/* Type Filter */}
-        <div className="flex items-center gap-4 flex-wrap">
-          <span className="text-xs text-foreground-muted uppercase tracking-wider">類型:</span>
-          <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span className="text-xs text-foreground-muted uppercase tracking-wider shrink-0">類型:</span>
+          <div className="flex flex-wrap gap-2">
             {["全部", ...types].map(t => (
               <button
                 key={t}
                 onClick={() => setSelectedType(t as TacticType | "全部")}
                 className={cn(
-                  "px-4 py-1.5 rounded-full text-sm transition-all border",
+                  "px-3 sm:px-4 py-1.5 rounded-full text-sm transition-all border",
                   selectedType === t 
                     ? "bg-accent-gold text-background border-accent-gold font-medium" 
                     : "bg-white/5 border-white/10 text-foreground-muted hover:border-white/30"
@@ -80,15 +80,15 @@ export default function TacticGrid({ tactics }: { tactics: Tactic[] }) {
         </div>
 
         {/* Characteristic Filter */}
-        <div className="flex items-center gap-4 flex-wrap">
-          <span className="text-xs text-foreground-muted uppercase tracking-wider">特性:</span>
-          <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span className="text-xs text-foreground-muted uppercase tracking-wider shrink-0">特性:</span>
+          <div className="flex flex-wrap gap-2">
             {["全部", ...characteristics].map(c => (
               <button
                 key={c}
                 onClick={() => setSelectedChar(c as Characteristic | "全部")}
                 className={cn(
-                  "px-4 py-1.5 rounded-full text-sm transition-all border",
+                  "px-3 sm:px-4 py-1.5 rounded-full text-sm transition-all border",
                   selectedChar === c 
                     ? "bg-accent-gold text-background border-accent-gold font-medium" 
                     : "bg-white/5 border-white/10 text-foreground-muted hover:border-white/30"
@@ -101,15 +101,15 @@ export default function TacticGrid({ tactics }: { tactics: Tactic[] }) {
         </div>
 
         {/* Quality Filter */}
-        <div className="flex items-center gap-4 flex-wrap">
-          <span className="text-xs text-foreground-muted uppercase tracking-wider">品質:</span>
-          <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span className="text-xs text-foreground-muted uppercase tracking-wider shrink-0">品質:</span>
+          <div className="flex flex-wrap gap-2">
             {["全部", ...qualities].map(q => (
               <button
                 key={q}
                 onClick={() => setSelectedQuality(q as Quality | "全部")}
                 className={cn(
-                  "px-4 py-1.5 rounded-full text-sm transition-all border",
+                  "px-3 sm:px-4 py-1.5 rounded-full text-sm transition-all border",
                   selectedQuality === q 
                     ? "bg-accent-gold text-background border-accent-gold font-medium" 
                     : "bg-white/5 border-white/10 text-foreground-muted hover:border-white/30"
