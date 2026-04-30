@@ -133,14 +133,14 @@ export default function GeneralDetailContent({
             <div className="p-8 space-y-6">
               <div className="flex flex-col sm:flex-row items-start gap-6">
                 <div className="relative w-20 h-20 shrink-0 rounded-2xl border border-accent-gold/20 overflow-hidden bg-black/40">
-                  <Image 
-                    src={general.tactic_icon} 
-                    alt={general.tactic_name} 
-                    fill 
-                    sizes="80px"
-                    className="object-cover opacity-80" 
-                    loading="eager"
-                  />
+                   <Image 
+                     src={general.tactic_icon} 
+                     alt={general.tactic_name} 
+                     fill 
+                     sizes="80px"
+                     className="object-cover opacity-80" 
+                     loading="lazy"
+                   />
                 </div>
                 <div>
                   <h3 className="text-2xl font-serif text-white mb-2">{general.tactic_name}</h3>

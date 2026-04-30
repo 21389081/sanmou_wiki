@@ -13,13 +13,14 @@ function GeneralCard({ member }: { member: Team["members"][0] }) {
     <div className="p-3 bg-white/5 rounded-lg space-y-2">
       <div className="relative w-14 h-14 rounded overflow-hidden bg-white/10 mx-auto mt-2">
         {member.general_img && (
-          <Image
-            src={member.general_img}
-            alt={member.general_name}
-            fill
-            sizes="56px"
-            className="object-cover"
-          />
+           <Image
+             src={member.general_img}
+             alt={member.general_name}
+             fill
+             sizes="56px"
+             className="object-cover"
+             loading="lazy"
+           />
         )}
       </div>
       <div className="font-medium text-center">{member.general_name}</div>

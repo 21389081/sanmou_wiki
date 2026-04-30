@@ -229,13 +229,14 @@ export default function BuilderPage() {
                                 </div>
                                 <div className='relative w-8 h-8 rounded overflow-hidden bg-white/5 flex-shrink-0'>
                                     {g.avatar && (
-                                        <Image
-                                            src={g.avatar}
-                                            alt={g.name}
-                                            fill
-                                            sizes='32px'
-                                            className='object-cover'
-                                        />
+                                     <Image
+                                         src={g.avatar}
+                                         alt={g.name}
+                                         fill
+                                         sizes='32px'
+                                         className='object-cover'
+                                         loading="lazy"
+                                     />
                                     )}
                                 </div>
                                 <span className='text-sm'>{g.name}</span>
@@ -304,13 +305,14 @@ export default function BuilderPage() {
                                 </div>
                                 <div className='relative w-8 h-8 rounded overflow-hidden bg-white/5 flex-shrink-0'>
                                     {t.icon && (
-                                        <Image
-                                            src={t.icon}
-                                            alt={t.name}
-                                            fill
-                                            sizes='32px'
-                                            className='object-cover'
-                                        />
+                                     <Image
+                                         src={t.icon}
+                                         alt={t.name}
+                                         fill
+                                         sizes='32px'
+                                         className='object-cover'
+                                         loading="lazy"
+                                     />
                                     )}
                                 </div>
                                 <span className='text-sm'>{t.name}</span>

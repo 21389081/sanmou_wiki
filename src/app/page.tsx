@@ -259,13 +259,14 @@ export default function Home() {
                                                     className='flex items-center gap-2 p-1.5 hover:bg-white/5 rounded-lg transition-colors group'
                                                 >
                                                     <div className='relative w-8 h-8 rounded border border-white/10 overflow-hidden bg-white/5'>
-                                                        <Image
-                                                            src={g.avatar}
-                                                            alt={g.name}
-                                                            fill
-                                                            sizes='40px'
-                                                            className='object-cover'
-                                                        />
+                                                         <Image
+                                                             src={g.avatar}
+                                                             alt={g.name}
+                                                             fill
+                                                             sizes='40px'
+                                                             className='object-cover'
+                                                             loading="lazy"
+                                                         />
                                                     </div>
                                                     <span className='text-sm font-medium group-hover:text-accent-gold transition-colors'>
                                                         {g.name}
@@ -286,13 +287,14 @@ export default function Home() {
                                                     className='flex items-center gap-2 p-1.5 hover:bg-white/5 rounded-lg transition-colors group'
                                                 >
                                                     <div className='relative w-8 h-8 rounded border border-white/10 overflow-hidden bg-white/5'>
-                                                        <Image
-                                                            src={t.icon}
-                                                            alt={t.name}
-                                                            fill
-                                                            sizes='32px'
-                                                            className='object-cover'
-                                                        />
+                                                         <Image
+                                                             src={t.icon}
+                                                             alt={t.name}
+                                                             fill
+                                                             sizes='32px'
+                                                             className='object-cover'
+                                                             loading="lazy"
+                                                         />
                                                     </div>
                                                     <span className='text-sm font-medium group-hover:text-accent-gold transition-colors'>
                                                         {t.name}
