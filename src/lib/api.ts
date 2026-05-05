@@ -189,7 +189,8 @@ export type TeamFilters = {
 function parseTierOrder(tier: string): number {
     const match = tier.match(/^T(\d+(\.\d+)?)$/);
     if (!match) return 99;
-    return parseFloat(match[1]) || 99;
+    const parsed = parseFloat(match[1]);
+    return isNaN(parsed) ? 99 : parsed;
 }
 
 export { parseTierOrder };
@@ -269,7 +270,17 @@ export async function getTeams(filters?: TeamFilters): Promise<Team[]> {
         );
     }
 
+    const parseSeasonOrder = (season: string | null): number => {
+        if (!season) return 99;
+        const match = season.match(/^S(\d+)$/);
+        return match ? parseInt(match[1], 10) : 99;
+    };
+
     result.sort((a, b) => {
+        const seasonA = parseSeasonOrder(a.season);
+        const seasonB = parseSeasonOrder(b.season);
+        if (seasonA !== seasonB) return seasonA - seasonB;
+
         const orderA = parseTierOrder(a.tier);
         const orderB = parseTierOrder(b.tier);
         return orderA - orderB;

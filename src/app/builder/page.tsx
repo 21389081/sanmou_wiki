@@ -161,13 +161,23 @@ export default function BuilderPage() {
         );
     }
 
-    // 將回傳陣容依 Tier 分群
-    const groupedTeams = teams.reduce((acc, team) => {
+    // 將回傳陣容依 Season 再依 Tier 分群
+    const groupedBySeason = teams.reduce((acc, team) => {
+        const season = team.season || '未知賽季';
         const tier = team.tier || '無評級';
-        if (!acc[tier]) acc[tier] = [];
-        acc[tier].push(team);
+        if (!acc[season]) acc[season] = {};
+        if (!acc[season][tier]) acc[season][tier] = [];
+        acc[season][tier].push(team);
         return acc;
-    }, {} as Record<string, Team[]>);
+    }, {} as Record<string, Record<string, Team[]>>);
+
+    const sortedSeasons = Object.keys(groupedBySeason).sort((a, b) => {
+        const parseSeasonOrder = (s: string) => {
+            const match = s.match(/^S(\d+)$/);
+            return match ? parseInt(match[1], 10) : 99;
+        };
+        return parseSeasonOrder(a) - parseSeasonOrder(b);
+    });
 
     return (
         <div className='py-8'>
@@ -375,26 +385,37 @@ export default function BuilderPage() {
             {/* Results Display */}
             {hasSearched && (
                 <div className='space-y-8 border border-accent-gold/30 rounded-xl p-4'>
-                    {Object.keys(groupedTeams).length === 0 ? (
+                    {sortedSeasons.length === 0 ? (
                         <div className='text-center py-12 text-foreground-muted'>
                             喔不，找不到符合條件的陣容，請嘗試減少過濾條件。
                         </div>
                     ) : (
-                        tiers
-                            .filter((tier) => groupedTeams[tier])
-                            .map((tier) => (
-                                <div key={tier} className='space-y-4'>
-                                    <h2 className='text-xl font-serif text-accent-gold text-center'>
-                                        {tier}
+                        sortedSeasons.map((season) => (
+                            <div key={season}>
+                                <div className='flex items-center gap-4 mb-6'>
+                                    <div className='h-px flex-1 bg-gradient-to-r from-transparent to-accent-gold/50' />
+                                    <h2 className='text-2xl font-serif text-accent-gold text-center whitespace-nowrap'>
+                                        {season} 陣容
                                     </h2>
-                                    <div className='h-px bg-gradient-to-r from-transparent via-accent-gold/50 to-transparent' />
-                                    <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
-                                        {groupedTeams[tier].map((team) => (
-                                            <TeamCard key={team.team_id} team={team} />
-                                        ))}
-                                    </div>
+                                    <div className='h-px flex-1 bg-gradient-to-l from-transparent to-accent-gold/50' />
                                 </div>
-                            ))
+                                {tiers
+                                    .filter((tier) => groupedBySeason[season]?.[tier])
+                                    .map((tier) => (
+                                        <div key={`${season}-${tier}`} className='space-y-4 mb-8'>
+                                            <h3 className='text-lg font-serif text-accent-gold/80 text-center'>
+                                                {tier}
+                                            </h3>
+                                            <div className='h-px bg-gradient-to-r from-transparent via-accent-gold/30 to-transparent' />
+                                            <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
+                                                {groupedBySeason[season][tier].map((team) => (
+                                                    <TeamCard key={team.team_id} team={team} />
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                            </div>
+                        ))
                     )}
                 </div>
             )}
