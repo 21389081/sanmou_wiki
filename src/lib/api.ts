@@ -164,8 +164,6 @@ export type TeamMember = {
     book_2: string;
     book_3: string;
     equip_point: string;
-    equip_stats: string;
-    horse_stats: string;
     plus_points: string;
 };
 

@@ -35,10 +35,9 @@ function GeneralCard({ member }: { member: Team["members"][0] }) {
       <DetailRow label="兵書二" value={member.book_2} />
       <DetailRow label="兵書三" value={member.book_3} />
       <DetailRow label="裝備屬性" value={member.equip_point} />
-      <DetailRow label="裝備特效" value={member.equip_stats} />
-      <DetailRow label="坐騎" value={member.horse_stats} />
       <DetailRow label="加點" value={member.plus_points} />
-      <DetailRow label="技能備選" value={[member.skill_1_alt, member.skill_2_alt].filter(Boolean).join(" / ")} />
+      <DetailRow label="技能一備選" value={member.skill_1_alt} />
+      <DetailRow label="技能二備選" value={member.skill_2_alt} />
     </div>
   );
 }
