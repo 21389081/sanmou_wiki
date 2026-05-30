@@ -38,7 +38,7 @@ ADMIN_PASSWORD=your_password
 | `src/lib/api.ts`    | Supabase 查詢函式（Server Component 用）                                                        |
 | `src/lib/supabase/` | `server.ts` 用於 RSC；`storage.ts` 處理圖片 URL                                                 |
 | `.agents/skills/`   | 專案專用 skills（frontend-design）                                                              |
-| `.claude/skills/`   | Claude 內建 skills（playwright-cli）                                                            |
+| `.Codex/skills/`   | Codex 內建 skills（playwright-cli）                                                            |
 
 ## API 函式 (`src/lib/api.ts`)
 

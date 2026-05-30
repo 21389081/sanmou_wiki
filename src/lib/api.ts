@@ -173,7 +173,6 @@ export type Team = {
     tier: string;
     formation: string;
     season: string;
-    note: string | null;
     members: TeamMember[];
 };
 
