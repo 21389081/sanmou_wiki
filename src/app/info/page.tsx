@@ -147,11 +147,34 @@ export default function InfoPage() {
 
             <section className='mb-12'>
                 <h2 className='text-2xl font-serif mb-6 flex items-center gap-2'>
-                    <Video size={24} className='text-accent-gold' />
-                    主播相關頻道
+                    <Globe size={24} className='text-accent-gold' />
+                    陣容參考來源
                 </h2>
-                <div className='p-12 glass rounded-2xl border-white/5 text-center'>
-                    <p className='text-2xl font-serif text-accent-gold'>廣告位招租中~</p>
+                <div className='grid gap-6 md:grid-cols-2'>
+                    <LinkCard
+                        title='小仔哥321'
+                        description='陸服老牌主播，有許多實用的陣容分享，本站大多數陣容都參考自小仔哥。'
+                        href='https://space.bilibili.com/477537407?spm_id_from=333.337.0.0'
+                        icon={Video}
+                        external
+                        color='text-pink-400'
+                    />
+                    <LinkCard
+                        title='鐵血雕饞'
+                        description='陸服目前流量最高的主播之一，本人也在台港澳新馬服征戰中。'
+                        href='https://space.bilibili.com/345551781?spm_id_from=333.337.0.0'
+                        icon={Video}
+                        external
+                        color='text-purple-400'
+                    />
+                    <LinkCard
+                        title='逃跑的阿桂'
+                        description='在台港澳新馬區征戰的全滿品大課長桂小五郎，對遊戲有著深厚的理解。'
+                        href='https://www.youtube.com/@RunawayKatsura'
+                        icon={Video}
+                        external
+                        color='text-green-400'
+                    />
                 </div>
             </section>
 
@@ -175,8 +198,6 @@ export default function InfoPage() {
             <div className='mt-16 p-8 glass rounded-2xl border-white/5 text-center'>
                 <p className='text-foreground-muted text-sm'>
                     本網站為粉絲製作的非官方作品，僅供學習與交流使用。
-                    <br />
-                    遊戲內容歸屬於杭州浮云网络科技有限公司與浙江华娱网络科技有限公司。
                 </p>
             </div>
         </div>

@@ -11,7 +11,6 @@ import {
     Search,
     Shield,
     Swords,
-    MapPin,
     Puzzle,
 } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
@@ -156,13 +155,13 @@ export default function Home() {
                     transition={{ duration: 0.6 }}
                     className='mb-4 inline-block px-3 py-1 bg-accent-gold/10 border border-accent-gold/20 rounded-full text-accent-gold text-xs uppercase tracking-[0.2em]'
                 >
-                    S3 賽季即將來臨
+                    第一批次 S4 賽季即將來臨
                 </motion.div>
                 <h1 className='text-4xl md:text-5xl font-serif mb-4 text-accent-gold  leading-tight'>
                     三謀<span className='text-foreground'>資料庫</span>
                 </h1>
                 <p className='text-foreground-muted max-w-xl mx-auto text-lg'>
-                    開始今日的三謀大學習。
+                    開始今日的三謀大學習，白板打贏課長指日可待。
                 </p>
             </div>
 
@@ -259,14 +258,14 @@ export default function Home() {
                                                     className='flex items-center gap-2 p-1.5 hover:bg-white/5 rounded-lg transition-colors group'
                                                 >
                                                     <div className='relative w-8 h-8 rounded border border-white/10 overflow-hidden bg-white/5'>
-                                                         <Image
-                                                             src={g.avatar}
-                                                             alt={g.name}
-                                                             fill
-                                                             sizes='40px'
-                                                             className='object-cover'
-                                                             loading="lazy"
-                                                         />
+                                                        <Image
+                                                            src={g.avatar}
+                                                            alt={g.name}
+                                                            fill
+                                                            sizes='40px'
+                                                            className='object-cover'
+                                                            loading='lazy'
+                                                        />
                                                     </div>
                                                     <span className='text-sm font-medium group-hover:text-accent-gold transition-colors'>
                                                         {g.name}
@@ -287,14 +286,14 @@ export default function Home() {
                                                     className='flex items-center gap-2 p-1.5 hover:bg-white/5 rounded-lg transition-colors group'
                                                 >
                                                     <div className='relative w-8 h-8 rounded border border-white/10 overflow-hidden bg-white/5'>
-                                                         <Image
-                                                             src={t.icon}
-                                                             alt={t.name}
-                                                             fill
-                                                             sizes='32px'
-                                                             className='object-cover'
-                                                             loading="lazy"
-                                                         />
+                                                        <Image
+                                                            src={t.icon}
+                                                            alt={t.name}
+                                                            fill
+                                                            sizes='32px'
+                                                            className='object-cover'
+                                                            loading='lazy'
+                                                        />
                                                     </div>
                                                     <span className='text-sm font-medium group-hover:text-accent-gold transition-colors'>
                                                         {t.name}
