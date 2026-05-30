@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/client';
 import { getGeneralImage, getTacticImage } from '@/lib/supabase/storage';
 import { fetchFilterOptions, fetchFilteredTeams } from './actions';
-import { Team } from '@/lib/api';
+import type { Team } from '@/lib/api/types';
 import TeamCard from '@/components/team-card';
 
 type BuilderGeneral = {

@@ -1,4 +1,5 @@
-import { getGeneralByName, getFatesByIds } from '@/lib/api';
+import { getFatesByIds } from '@/lib/api/fates';
+import { getGeneralByName } from '@/lib/api/generals';
 import GeneralDetailContent from './general-detail-content';
 import { Link } from 'lucide-react';
 

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
-import { getGenerals, getTactics, getTeams } from '@/lib/api'
+import { getGenerals } from '@/lib/api/generals'
+import { getTactics } from '@/lib/api/tactics'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sanmou-wiki.vercel.app'
 
@@ -9,11 +10,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const [
         generals,
         tactics,
-        teams,
     ] = await Promise.all([
         getGenerals(),
         getTactics(),
-        getTeams(),
     ])
 
     const staticPages: MetadataRoute.Sitemap = [

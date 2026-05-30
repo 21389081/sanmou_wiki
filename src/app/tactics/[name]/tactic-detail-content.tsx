@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, Scroll, Zap, Flame, Target, Shield, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { Tactic } from "@/lib/api";
+import type { Tactic } from "@/lib/api/types";
 
 type TacticType = "主動" | "被動" | "指揮" | "追擊";
 type TacticRank = "橙" | "紫" | "藍";

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, Shield, Sword, Zap, Heart, Star, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { General, Fate } from "@/lib/api";
+import type { Fate, General } from "@/lib/api/types";
 
 type Faction = "魏" | "蜀" | "吳" | "群"
 type Quality = "橙" | "紫" | "藍"

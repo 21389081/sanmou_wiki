@@ -1,4 +1,4 @@
-import { getTactics } from "@/lib/api";
+import { getTactics } from "@/lib/api/tactics";
 import TacticGrid from "./tactic-grid";
 
 export default async function TacticsPage() {

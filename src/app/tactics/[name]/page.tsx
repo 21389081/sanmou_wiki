@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getTacticByName } from "@/lib/api";
+import { getTacticByName } from "@/lib/api/tactics";
 import TacticDetailContent from "./tactic-detail-content";
 
 export default async function TacticDetailPage({ params }: { params: Promise<{ name: string }> }) {

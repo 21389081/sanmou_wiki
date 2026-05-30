@@ -1,7 +1,8 @@
 "use server";
 
 import { createClient } from '@/lib/supabase/server';
-import { getTeams, TeamFilters, Team, parseTierOrder } from '@/lib/api';
+import { getTeams, parseTierOrder } from '@/lib/api/teams';
+import type { Team, TeamFilters } from '@/lib/api/types';
 
 export async function fetchFilterOptions() {
     const supabase = await createClient();
