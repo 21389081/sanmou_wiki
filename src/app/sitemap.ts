@@ -58,12 +58,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'weekly',
             priority: 0.8,
         },
-        {
-            url: `${BASE_URL}/admin_join_team`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.5,
-        },
     ]
 
     const generalPages: MetadataRoute.Sitemap = generals.map((general) => ({
