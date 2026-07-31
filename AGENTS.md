@@ -17,6 +17,7 @@ npm run lint   # ESLint 9 (flat config)
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ADMIN_PASSWORD=your_password
+SUPABASE_SECRET_KEY=your_secret_key
 
 ```
 
@@ -38,7 +39,7 @@ ADMIN_PASSWORD=your_password
 | `src/lib/api.ts`    | Supabase 查詢函式（Server Component 用）                                                        |
 | `src/lib/supabase/` | `server.ts` 用於 RSC；`storage.ts` 處理圖片 URL                                                 |
 | `.agents/skills/`   | 專案專用 skills（frontend-design）                                                              |
-| `.Codex/skills/`   | Codex 內建 skills（playwright-cli）                                                            |
+| `.Codex/skills/`    | Codex 內建 skills（playwright-cli）                                                             |
 
 ## API 函式 (`src/lib/api.ts`)
 
@@ -66,3 +67,17 @@ ADMIN_PASSWORD=your_password
 - **程式碼檢查**：`npm run lint`
 
 這些指令是您在開發過程中最常需要用到的，可以幫助您快速進行開發、測試和部署。
+
+## Agent skills
+
+### Issue tracker
+
+Issues and PRDs are tracked in this repository's GitHub Issues. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the five default triage labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This repository uses a single-context domain documentation layout. See `docs/agents/domain.md`.
