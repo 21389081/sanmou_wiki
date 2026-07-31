@@ -47,13 +47,27 @@ RPC 在同一交易中驗證並新增主表與三名成員。成員數量不是�
 
 ## 新增檔案範圍
 
-- `src/app/admin_join_team/page.tsx`
-- `src/app/admin_join_team/actions.ts`
-- `src/app/admin_join_team/admin-team-form.tsx`
-- `src/app/admin_join_team/validation.ts`
-- `src/lib/supabase/admin.ts`
-- 新的 Supabase migration 檔案
-- 必要的新測試檔案
+頁面專用元件與邏輯依功能共置，真正跨頁共用的基礎設施才放入全域 `lib`：
+
+```text
+src/app/admin_join_team/
+├── page.tsx
+├── actions.ts
+├── _components/
+│   ├── admin-team-form.tsx
+│   ├── member-card.tsx
+│   └── searchable-select.tsx
+└── _lib/
+    └── validation.ts
+
+src/lib/supabase/
+└── admin.ts
+
+supabase/migrations/
+└── 新增安全政策與原子寫入 RPC
+```
+
+必要的新測試與驗證檔案也放在其所測功能旁；不建立存放網站執行邏輯的 `scripts` 目錄。
 
 不修改 Navbar、sitemap、builder、既有 API、既有 Supabase clients、`globals.css`、`package.json` 或 `.env.local`。
 
@@ -74,4 +88,3 @@ RPC 在同一交易中驗證並新增主表與三名成員。成員數量不是�
 - 合法資料一次建立一筆 `teams_info` 與三筆 `team_members`。
 - 模擬成員新增失敗時不留下主表資料。
 - 執行 `npm run lint`、`npm run build`，並以瀏覽器驗證桌面與手機版登入、搜尋選擇、錯誤提示及成功提交流程。
-
